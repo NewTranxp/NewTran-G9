@@ -4,30 +4,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="no-referrer" />
-  <title>Open NewTran App</title>
+  <title>Mở bài làm</title>
   <style>
     body{font-family:system-ui,Arial,sans-serif;padding:18px;line-height:1.5;max-width:820px;margin:0 auto}
     .box{border:1px solid #ddd;border-radius:12px;padding:14px}
     button{padding:10px 14px;font-size:16px;cursor:pointer}
     a{word-break:break-all}
     .muted{opacity:.85}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
   </style>
 </head>
 <body>
   <h2>Mở bài làm</h2>
-  <div class="box">
-    <p>Đang chuyển sang ứng dụng… Nếu không tự chuyển, bấm nút:</p>
-    <p><button id="openBtn" type="button">MỞ NGAY</button></p>
-    <p class="muted">Nếu vẫn lỗi do Zalo/Facebook, hãy bấm giữ để Copy link rồi dán vào Chrome/Safari:</p>
+  <div class="box" id="ui">
+    <p id="status">Đang xử lý…</p>
+    <div class="row" style="margin:10px 0">
+      <button id="openChrome" type="button">Mở bằng Chrome</button>
+      <button id="copyLink" type="button">Copy link</button>
+    </div>
+    <p class="muted" id="hint"></p>
     <p><a id="directLink" href="#" rel="noopener">Link trực tiếp</a></p>
   </div>
 
   <script>
     var TARGET = "https://script.google.com/macros/s/AKfycbwLHeDPq4FWvPbt5FUQWNAmvnW_c7bXScXpTUhzlPBCSzOfrSrSBYOeLe5C_ZYGZvcFBg/exec";
 
-    function toHttps_(url){
-      try { var u = new URL(url); u.protocol = "https:"; return u.toString(); }
-      catch(e){ return url; }
+    function isInApp_(){
+      var ua = (navigator.userAgent || "").toLowerCase();
+      // Zalo / Facebook / Instagram in-app (phổ biến)
+      return ua.indexOf("zalo") > -1 || ua.indexOf("fban") > -1 || ua.indexOf("fbav") > -1 || ua.indexOf("instagram") > -1;
     }
 
     function buildAndroidChromeIntent_(url){
@@ -38,22 +43,59 @@
       }catch(e){ return ""; }
     }
 
-    function go_(){
-      var url = toHttps_(TARGET);
-      var ua = navigator.userAgent || "";
-      if (/Android/i.test(ua)) {
-        var intentUrl = buildAndroidChromeIntent_(url);
-        if (intentUrl) { location.href = intentUrl; return; }
-      }
-      try { location.replace(url); } catch(e){ location.href = url; }
+    async function copy_(text){
+      try{
+        if (navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      }catch(e){}
+      try{
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.style.position="fixed"; ta.style.left="-9999px";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return !!ok;
+      }catch(e){ return false; }
     }
 
-    document.getElementById("openBtn").addEventListener("click", go_);
-    var a = document.getElementById("directLink");
-    a.href = TARGET;
-    a.textContent = TARGET;
+    function goDirect_(){
+      // Chỉ redirect khi KHÔNG ở in-app
+      try { location.replace(TARGET); } catch(e){ location.href = TARGET; }
+    }
 
-    setTimeout(go_, 350);
+    // UI wiring
+    var statusEl = document.getElementById("status");
+    var hintEl = document.getElementById("hint");
+    var direct = document.getElementById("directLink");
+    direct.href = TARGET;
+    direct.textContent = TARGET;
+
+    document.getElementById("copyLink").onclick = async function(){
+      var ok = await copy_(TARGET);
+      hintEl.textContent = ok ? ("Đã copy: " + TARGET) : ("Không copy được. Hãy bấm giữ để chọn & copy: " + TARGET);
+    };
+
+    document.getElementById("openChrome").onclick = function(){
+      var ua = navigator.userAgent || "";
+      if (/Android/i.test(ua)){
+        var intentUrl = buildAndroidChromeIntent_(TARGET);
+        if (intentUrl){ location.href = intentUrl; return; }
+      }
+      // Fallback: mở tab mới
+      window.open(TARGET, "_blank", "noopener");
+    };
+
+    // Logic
+    if (isInApp_()){
+      statusEl.textContent = "Bạn đang mở trong Zalo/Facebook. Không tự chuyển để tránh lỗi.";
+      hintEl.textContent = "Cách chuẩn: bấm “Mở bằng Chrome”. Nếu vẫn lỗi: bấm “Copy link” rồi dán vào Chrome/Safari.";
+    } else {
+      statusEl.textContent = "Đang chuyển sang ứng dụng…";
+      hintEl.textContent = "Nếu không tự chuyển, hãy bấm mở/copy link bên trên.";
+      setTimeout(goDirect_, 350);
+    }
   </script>
 </body>
 </html>
