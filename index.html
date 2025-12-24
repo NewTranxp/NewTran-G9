@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Open NewTran App</title>
+  <style>
+    body{font-family:system-ui,Arial,sans-serif;padding:18px;line-height:1.5;max-width:820px;margin:0 auto}
+    .box{border:1px solid #ddd;border-radius:12px;padding:14px}
+    button{padding:10px 14px;font-size:16px;cursor:pointer}
+    a{word-break:break-all}
+    .muted{opacity:.85}
+  </style>
+</head>
+<body>
+  <h2>Mở bài làm</h2>
+  <div class="box">
+    <p>Đang chuyển sang ứng dụng… Nếu không tự chuyển, bấm nút:</p>
+    <p><button id="openBtn" type="button">MỞ NGAY</button></p>
+    <p class="muted">Nếu vẫn lỗi do Zalo/Facebook, hãy bấm giữ để Copy link rồi dán vào Chrome/Safari:</p>
+    <p><a id="directLink" href="#" rel="noopener">Link trực tiếp</a></p>
+  </div>
+
+  <script>
+    // ====== Your Apps Script Web App URL (/exec) ======
+    var TARGET = "https://script.google.com/macros/s/AKfycbwLHeDPq4FWvPbt5FUQWNAmvnW_c7bXScXpTUhzlPBCSzOfrSrSBYOeLe5C_ZYGZvcFBg/exec";
+
+    function toHttps_(url){
+      try { var u = new URL(url); u.protocol = "https:"; return u.toString(); }
+      catch(e){ return url; }
+    }
+
+    function buildAndroidChromeIntent_(url){
+      // intent://<host><path>#Intent;scheme=https;package=com.android.chrome;end
+      try{
+        var u = new URL(url);
+        var hostPath = (u.host||"") + (u.pathname||"") + (u.search||"") + (u.hash||"");
+        return "intent://" + hostPath.replace(/^\/+/, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+      }catch(e){
+        return "";
+      }
+    }
+
+    function go_(){
+      var url = toHttps_(TARGET);
+      // Android: try Chrome intent first (best for Zalo/FB in-app)
+      var ua = navigator.userAgent || "";
+      if (/Android/i.test(ua)) {
+        var intentUrl = buildAndroidChromeIntent_(url);
+        if (intentUrl) { location.href = intentUrl; return; }
+      }
+      // Fallback
+      try { location.replace(url); } catch(e){ location.href = url; }
+    }
+
+    document.getElementById("openBtn").addEventListener("click", go_);
+    var a = document.getElementById("directLink");
+    a.href = TARGET;
+    a.textContent = TARGET;
+
+    // Auto redirect after a short delay
+    setTimeout(go_, 350);
+  </script>
+</body>
+</html>
