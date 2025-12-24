@@ -5,7 +5,6 @@
     <title>New Tran English App - Grade 9 Speaking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      /* --- CSS GIAO DIỆN --- */
       :root {
         --bg-gradient: linear-gradient(135deg, #fce38a, #f38181);
         --card-bg: #ffffffcc;
@@ -93,12 +92,15 @@
       }
       @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-      .mini-banner {
-        border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,0.8);
-        border: 1px solid rgba(0,0,0,0.06); margin-top: 10px;
+      .footer {
+        text-align: center;
+        margin-top: 16px;
+        color: #fff;
+        font-size: 13px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
       }
-      
-      /* Upload Progress */
+
+      /* Upload Progress từ khối 6 */
       .upload-progress {
         display: none;
         margin-top: 12px;
@@ -127,13 +129,10 @@
         background: #4caf50;
         transition: width 0.3s ease;
       }
-      
-      .footer {
-        text-align: center;
-        margin-top: 16px;
-        color: #fff;
-        font-size: 13px;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+      .mini-banner {
+        border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,0.8);
+        border: 1px solid rgba(0,0,0,0.06); margin-top: 10px;
       }
     </style>
   </head>
@@ -151,10 +150,10 @@
     <div class="marquee">
       <span>★ Mr. Tân Trần Ngọc – Xuân Phú lower secondary school ★</span>
     </div>
-
+ 
     <div class="page">
       <h1>New Tran English App</h1>
-      <div class="subtitle">Luyện nói tiếng Anh – Grade 9</div>
+      <div class="subtitle">Luyện nói tiếng Anh – Grade 9 (Listening Mode)</div>
 
       <div id="pendingBox" class="mini-banner" style="display:none;">
         <div><strong>⚠️ Có 1 bài chưa gửi xong (do lỗi mạng)</strong></div>
@@ -164,7 +163,7 @@
           <button id="clearPendingBtn" class="btn-secondary" type="button">🧹 Xóa bài lưu</button>
         </div>
       </div>
-
+ 
       <div class="card">
         <div class="card-header">
           <div class="pill">Bước 0</div>
@@ -181,18 +180,16 @@
          </div>
         </div>
       </div>
-
+ 
       <div class="card">
         <div class="card-header">
           <div class="pill">Bước 1</div>
           <div><strong>Chọn bài luyện nói</strong></div>
         </div>
-        <div class="label">Khối lớp:</div>
-        <select id="gradeSelect"></select>
-        <div class="label">Chủ đề:</div>
-        <select id="topicSelect"></select>
+        <div class="label">Khối lớp:</div><select id="gradeSelect"></select>
+        <div class="label">Chủ đề:</div><select id="topicSelect"></select>
       </div>
-
+ 
       <div class="card">
         <div class="card-header">
           <div class="pill">Bước 2</div>
@@ -208,7 +205,7 @@
               style="background:#f9f9f9; color:#555; font-size:15px;"></textarea>
         </div>
       </div>
-
+ 
       <div class="card">
         <div class="card-header">
           <div class="pill">Bước 3</div>
@@ -216,42 +213,19 @@
         </div>
         
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-          <button id="startBtn" class="btn-primary">🎙 Bắt đầu nói</button>
+          <button id="startBtn" class="btn-primary">🎙 Bắt đầu nói (3 phút)</button>
           <button id="stopBtn" class="btn-secondary" disabled>⏹ Dừng</button>
           <div id="timerDisplay" class="timer-display">03:00</div>
         </div>
         
-        <div id="status" class="status">Nhấn "Bắt đầu nói" để trả lời.</div>
+        <div id="status" class="status">Nhấn "Bắt đầu nói" để trả lời. Bạn có 3 phút để nói.</div>
         
-        <!-- Thông báo chỉ cần nói -->
+        <!-- Thông báo chỉ cần nói (từ khối 6) -->
         <div style="background: #e8f5e8; padding: 10px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #4caf50;">
           <strong>📢 Lưu ý:</strong> Ứng dụng chỉ yêu cầu <strong>nói (ghi âm)</strong>. Không cần nhập văn bản.
         </div>
         
-        <!-- Transcript ẩn đi (vẫn cần cho logic) -->
-        <div style="display: none;">
-          <div class="label">Transcript (HS nói):</div>
-          <textarea id="answerText" rows="8" readonly
-            placeholder="Nội dung bạn nói sẽ hiện ở đây..."
-            style="background-color:#f0f8ff; font-size:16px; color:#000;"></textarea>
-          
-          <div style="margin-top:10px;">
-            <button id="clearBtn" class="btn-danger" type="button"
-              style="width:100%; justify-content:center;">
-              🗑 Xóa câu trả lời & Làm lại
-            </button>
-          </div>
-        </div>
-        
-        <br>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button id="sendBtn" class="btn-primary" disabled
-            style="flex:1; justify-content:center;">📩 Gửi bài cho GV</button>
-          <button id="suggestBtn" class="btn-secondary" type="button" disabled
-            style="flex:1; justify-content:center;">💡 Xem gợi ý</button>
-        </div>
-        
-        <!-- Upload Progress -->
+        <!-- Upload Progress từ khối 6 -->
         <div id="uploadProgress" class="upload-progress">
           <div class="progress-header">
             <span>Đang tải lên...</span>
@@ -261,13 +235,28 @@
             <div id="progressBar" class="progress-bar"></div>
           </div>
         </div>
+        
+        <div style="margin-top:10px;">
+            <button id="clearBtn" class="btn-danger" type="button"
+              style="width:100%; justify-content:center;">
+              🗑 Xóa bài & Làm lại
+            </button>
+        </div>
+        
+        <br>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="sendBtn" class="btn-primary" disabled
+            style="flex:1; justify-content:center;">📩 Nộp bài cho GV</button>
+          <button id="suggestBtn" class="btn-secondary" type="button" disabled
+            style="flex:1; justify-content:center;">💡 Xem gợi ý</button>
+        </div>
       </div>
-
+ 
       <div class="card">
         <h2>Kết quả gửi</h2>
         <div id="resultArea" class="small">Chưa gửi.</div>
       </div>
-
+ 
       <div class="card">
         <h2>Gợi ý trả lời / Suggested Answers</h2>
         <div id="suggestionsArea" class="small"
@@ -276,28 +265,25 @@
           (Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)
         </div>
       </div>
-
+ 
       <div class="footer">
         © New Tran English App – Tân Trần Ngọc &amp; Google Apps Script
       </div>
     </div>
 
     <script>
-      // ===================== APPS SCRIPT URL =====================
-      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWTO0fAAS3evBWQqdDmTdM2x39BrX0kQSOGuKovH5px_K9OIGUUrGeGvBWbFnslPp5/exec";
+      // ===================== APPS SCRIPT URL (FINAL) =====================
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZ48S-PVLSK-ZpXvbITFx6MTL_uG6dvwCqwyyzuzqonZGqudpFwaohsSQkF2QYBxuM/exec";
+      // ===================================================================
 
       // ======= lưu bài khi gửi lỗi =======
-      const PENDING_KEY = "NEWTRAN_GRADE9_PENDING_SUBMISSION_V1";
+      const PENDING_KEY = "NEWTRAN_PENDING_SUBMISSION_V2_GRADE9";
 
       // ======= chống quá dung lượng (base64) =======
       const MAX_DATAURL_CHARS = 28_000_000;
-      const SMALL_BLOB_MAX = 4 * 1024 * 1024; // <= 4MB: gửi dataUrl; >4MB: dùng chunk upload
+      const SMALL_BLOB_MAX = 4 * 1024 * 1024;
 
-      // ===== CHỌN GIỌNG TIẾNG ANH CHO iOS / SAFARI =====
-      let englishVoice = null;
-      let pendingSpeakText = null;
-
-      /* --- DỮ LIỆU CÂU HỎI / GỢI Ý --- */
+      /* ================== DỮ LIỆU KHỐI 9 ================== */
       const GRADES = [
         {
           id: "9",
@@ -331,11 +317,11 @@
         "g9_u2_2": "Talk about the advantages of living in a city. You should say:\n• what convenient services or facilities cities offer\n• what opportunities people have in cities\n• how city life supports education, transport, or entertainment\nAnd explain why many people prefer living in cities.",
         "g9_u2_3": "Talk about the drawbacks of living in a city. You should say:\n• what problems people may face (noise, traffic, pollution…)\n• how these problems affect residents\n• who suffers the most from these issues\nAnd explain which drawback you think is the most serious and why.",
         "g9_u3_1": "Talk about a healthy habit that teenagers should develop. You should say:\n• what the habit is\n• how to practise it\n• what benefits it brings\nAnd explain why this habit is especially important for teenagers.",
-        "g9_u3_2": "Talk about the ways teenagers should manage their time effectively. You should say:\n• why time management is important for teens\n• what strategies they can use (planning, prioritising tasks, reducing screen time…)\n• how these strategies help with schoolwork and daily life\nAnd explain how good time management can improve teenagers’ lifestyle.",
-        "g9_u3_3": "Talk about the ways teenagers can reduce stress. You should say:\n• what causes stress for teenagers nowadays\n• what activities or habits can help them relax\n• who can support them when they feel stressed\nAnd explain why managing stress is essential for teenagers’ mental health.",
+        "g9_u3_2": "Talk about the ways teenagers should manage their time effectively. You should say:\n• why time management is important for teens\n• what strategies they can use (planning, prioritising tasks, reducing screen time…)\n• how these strategies help with schoolwork and daily life\nAnd explain how good time management can improve teenagers' lifestyle.",
+        "g9_u3_3": "Talk about the ways teenagers can reduce stress. You should say:\n• what causes stress for teenagers nowadays\n• what activities or habits can help them relax\n• who can support them when they feel stressed\nAnd explain why managing stress is essential for teenagers' mental health.",
         "g9_u4_1": "Describe a memorable event from your childhood. You should say:\n• when it happened\n• who was involved\n• what you remember most about it\nAnd explain why this memory is still important to you.",
         "g9_u5_1": "Describe a new experience you have tried for the first time. You should say:\n• what the experience was\n• where and when you tried it\n• how you felt during the experience\nAnd explain what you learned from this experience.",
-        "g9_u6_1": "Describe a lifestyle change in Viet Nam over the years. You should say:\n• what life was like in the past\n• what life is like now\n• what has changed the most\nAnd explain how these changes have affected people’s lives.",
+        "g9_u6_1": "Describe a lifestyle change in Viet Nam over the years. You should say:\n• what life was like in the past\n• what life is like now\n• what has changed the most\nAnd explain how these changes have affected people's lives.",
         "g9_u7_1": "Describe a natural wonder you would like to visit. You should say:\n• what it is\n• where it is located\n• what it is famous for\nAnd explain why you want to visit this natural wonder.",
         "g9_u8_1": "Describe a place you have visited as a tourist. You should say:\n• where it is\n• what you did there\n• what you enjoyed most\nAnd explain why you would recommend this place to other tourists.",
         "g9_u9_1": "Describe a variety of English you find interesting. You should say:\n• what the variety is (British, American, Australian, Singaporean…)\n• how it sounds or how it is used\n• where you learned about it\nAnd explain why this variety of English interests you.",
@@ -349,29 +335,28 @@
         "g9_u1_2": "My favourite community helper in my village is the garbage collector, a man named Mr. Nam, who has been doing this job for more than ten years. Although his work is simple and often seen as dirty, it is extremely important for keeping our rural community clean and healthy. Every day, he wakes up very early, usually before sunrise, and starts working while most people are still sleeping.\n\nIn our small village, he rides an old motorbike with a large metal cart attached to the back. He goes slowly along each road, stopping in front of every house to collect trash bags. Even on hot summer days, heavy rainy days, or cold winter mornings, he never skips his route. In the afternoon, he often helps clean the areas around the market, the commune hall, and the school gate, where rubbish gathers quickly. Sometimes, he even reminds children not to throw litter on the road and teaches them simple ways to protect the environment.\n\nI admire him because he does his job with dedication even though it is not well-paid or respected by many people. Thanks to his hard work, our village roads look cleaner, the air smells fresher, and people become more aware of keeping the environment tidy. Without him, our community would face unpleasant smells, pollution, and health problems.\n\nWhat I like most about him is his positive attitude. He always smiles and greets everyone politely. He rarely complains, even when the work is difficult. To me, he is a silent hero who contributes to the well-being of our village every single day.\n\nThat is why he is my favourite community helper.",
         "g9_u2_1": "One feature of city life that I really like is the public transportation system, especially the bus network. In big cities like Hanoi and Ho Chi Minh City, buses are available almost everywhere. The routes are clearly numbered, the schedules are posted at bus stops, and buses come frequently throughout the day. This makes it very convenient for students like me who do not have their own vehicles.\n\nI often use the bus to go to school, visit my relatives, or go to the city center. The bus is cheap, safe, and environmentally friendly because it can carry many passengers at the same time. While sitting on the bus, I enjoy looking out the window and observing the busy streets, tall buildings, and daily activities of city life. Sometimes, I even study vocabulary or listen to English audio during the ride.\n\nThis feature is important because it helps reduce traffic jams and air pollution. If more people use buses instead of motorbikes, the roads would be less crowded and the air would be cleaner. The bus system also makes it possible for students, elderly people, and low-income families to travel easily without spending too much money.\n\nI enjoy using public transportation because it gives me independence, saves time, and helps me understand city life better. For me, the bus system is one of the best things about living in a city.",
         "g9_u2_2": "Living in a city has many advantages, which is why more and more people choose to move from rural areas to urban centers. One major advantage is access to modern services and facilities. Cities have well-equipped hospitals, high-quality schools, supermarkets, shopping centers, and entertainment areas. Whenever people need something, they can easily find it within a short distance.\n\nAnother important advantage is the wide range of education and job opportunities. Students can attend good schools, join clubs, take extra classes, and use modern libraries. Adults can choose from many kinds of jobs in different fields such as business, technology, education, and tourism. This helps them improve their skills and build better careers.\n\nCities also offer convenient transportation systems, including buses, taxis, and sometimes metros. These make it easy for people to move around without using private vehicles. In addition, cities provide many cultural experiences—museums, theatres, concerts, parks, and festivals.\n\nFor these reasons, living in a city is very attractive. Although it can be crowded, the convenience and opportunities it offers make city life appealing to many people.",
-        "g9_u2_3": "Although city life has many advantages, it also has several drawbacks. One of the biggest problems is traffic congestion. During rush hours, thousands of vehicles fill the streets. People often become stressed as they wait in long lines of traffic.\n\nAnother serious drawback is air and noise pollution. With so many motorbikes, cars, factories, and construction sites, the air quality in cities is often poor. Many people, especially children and the elderly, suffer from respiratory problems. Noise from vehicles and crowded places can also make it difficult to concentrate or relax.\n\nCities are also overcrowded. Streets, schools, and apartment buildings are full of people. Some families live in very small spaces with little privacy. In addition, living costs in cities are high—food, rent, and transportation all cost more than in rural areas.\n\nAmong all the drawbacks, I think air pollution is the most serious because it affects people’s long-term health. Although cities offer opportunities, these problems make city life challenging for many residents.",
+        "g9_u2_3": "Although city life has many advantages, it also has several drawbacks. One of the biggest problems is traffic congestion. During rush hours, thousands of vehicles fill the streets. People often become stressed as they wait in long lines of traffic.\n\nAnother serious drawback is air and noise pollution. With so many motorbikes, cars, factories, and construction sites, the air quality in cities is often poor. Many people, especially children and the elderly, suffer from respiratory problems. Noise from vehicles and crowded places can also make it difficult to concentrate or relax.\n\nCities are also overcrowded. Streets, schools, and apartment buildings are full of people. Some families live in very small spaces with little privacy. In addition, living costs in cities are high—food, rent, and transportation all cost more than in rural areas.\n\nAmong all the drawbacks, I think air pollution is the most serious because it affects people's long-term health. Although cities offer opportunities, these problems make city life challenging for many residents.",
         "g9_u3_1": "One healthy habit that teenagers should develop is doing regular exercise. Today, many students spend too much time sitting in class, using smartphones, or playing games. As a result, they may become tired, stressed, or unhealthy. Regular exercise can help prevent these problems.\n\nThere are many forms of exercise that are suitable for teenagers, such as jogging, swimming, cycling, playing badminton, or simply walking for 30 minutes a day. To practise this habit, students can make a weekly plan, choose a sport they enjoy, and exercise with a friend to stay motivated.\n\nRegular physical activity brings many benefits. It strengthens the body, improves blood circulation, and keeps the heart healthy. It also helps reduce stress and makes the mind clearer, which is very useful when studying. Students who exercise frequently often sleep better and feel more energetic in class.\n\nThis habit is especially important today because teenagers face a lot of pressure from schoolwork. Doing exercise helps them balance their physical and mental health and develop a positive lifestyle. Therefore, I think every teenager should make exercise a part of their daily routine.",
         "g9_u3_2": "Time management is very important for teenagers because they have many tasks to complete each day, such as homework, revision, housework, and personal activities. One effective way to manage time is by making a daily or weekly schedule. Students can write down the tasks they need to finish and arrange them in order of priority.\n\nAnother helpful method is to reduce distractions. Spending too much time on social media or video games can waste valuable hours. Teenagers should set a limit for screen time and avoid using phones while studying.\n\nPreparing school materials in advance, especially the night before, is another good habit. It prevents students from rushing in the morning and helps them start the day calmly. Breaking big assignments into smaller parts also makes the work easier and less stressful.\n\nGood time management helps teenagers finish homework on time, improve their grades, and still have free time to relax or enjoy hobbies. It teaches them responsibility and makes their daily life more organized.",
         "g9_u3_3": "Teenagers today often face stress from school, exams, relationships, and personal expectations. One effective way to reduce stress is by doing physical exercise, such as playing sports, walking, or practising simple stretches. Exercise releases energy and helps the mind relax.\n\nAnother helpful strategy is talking to someone they trust—a parent, teacher, or close friend. Sharing feelings can make problems feel lighter and help teenagers receive advice. Listening to music, reading books, or spending time in nature are also good ways to calm the mind.\n\nTeenagers should also learn to take short breaks between study sessions and avoid studying for too many hours without resting. Getting enough sleep is important because a tired brain becomes more stressed.\n\nManaging stress helps teenagers stay healthy and enjoy school life more. With the right habits, they can handle challenges more confidently.",
-        "g9_u4_1": "One memorable event from my childhood was my first day of primary school, an experience that I will never forget. I was six years old at the time, and everything around me felt new, colorful, and a little scary. Early in the morning, my mother helped me dress in my clean uniform and prepared my school bag with books, notebooks, and a pencil case. I remember feeling both excited and nervous as we walked toward the school gate.\n\nWhen we arrived, the schoolyard was full of students wearing the same uniform. Some were crying, while others were laughing and running around. I held my mother’s hand tightly because I was afraid of getting lost. My classroom was bright, with many pictures on the walls and small wooden desks arranged neatly. My first teacher, Ms. Hoa, greeted us with a warm smile. Her gentle voice made me feel calmer.\n\nDuring the break, I made my very first school friend. We shared snacks and talked about our favorite cartoons. That simple moment made me feel less lonely.\n\nThis memory is important to me because it marked the beginning of my learning journey. It taught me to be brave, make new friends, and enjoy school life. Even now, whenever I think about that day, I feel warm and happy.",
+        "g9_u4_1": "One memorable event from my childhood was my first day of primary school, an experience that I will never forget. I was six years old at the time, and everything around me felt new, colorful, and a little scary. Early in the morning, my mother helped me dress in my clean uniform and prepared my school bag with books, notebooks, and a pencil case. I remember feeling both excited and nervous as we walked toward the school gate.\n\nWhen we arrived, the schoolyard was full of students wearing the same uniform. Some were crying, while others were laughing and running around. I held my mother's hand tightly because I was afraid of getting lost. My classroom was bright, with many pictures on the walls and small wooden desks arranged neatly. My first teacher, Ms. Hoa, greeted us with a warm smile. Her gentle voice made me feel calmer.\n\nDuring the break, I made my very first school friend. We shared snacks and talked about our favorite cartoons. That simple moment made me feel less lonely.\n\nThis memory is important to me because it marked the beginning of my learning journey. It taught me to be brave, make new friends, and enjoy school life. Even now, whenever I think about that day, I feel warm and happy.",
         "g9_u5_1": "A new experience I tried for the first time was learning to ride a bicycle when I was around ten years old. Many of my friends already knew how to ride, so I felt excited but also a bit nervous. My father decided to teach me on a quiet afternoon in front of our house.\n\nAt first, I had trouble keeping my balance. My legs were shaking, and I was afraid of falling. My father held the back of the bike and encouraged me to pedal slowly. Even though I fell several times, he told me not to give up. After practising for several days, something amazing happened—I suddenly found my balance and rode a short distance by myself. I still remember the feeling of the wind on my face at that moment.\n\nOnce I learned how to ride confidently, I began exploring my village roads with friends. We rode to the rice fields, to the small market, and to the riverbank. Those rides became a big part of my childhood.\n\nThis experience taught me an important lesson: new things may be difficult at first, but with patience and practice, I can overcome challenges. Learning to ride a bicycle helped me become more confident and independent.",
-        "g9_u6_1": "One major lifestyle change in Vietnam over the years is the way people travel. In the past, especially in rural areas, most people used bicycles or simply walked to school, the market, or the rice fields. Motorbikes were rare, and only better-off families could afford one. Roads were narrow and sometimes unpaved, so traveling could be slow and difficult.\n\nToday, things have changed dramatically. Almost every household owns at least one motorbike, and many families even have cars. Roads are wider, smoother, and better maintained. There are also more public transportation options in big cities, such as buses and metro lines. These improvements make traveling faster, easier, and more comfortable.\n\nHowever, this lifestyle change also brings challenges. With more vehicles on the road, traffic jams and air pollution have become serious problems, especially in large cities. People must also be more careful because traffic accidents are common.\n\nDespite the drawbacks, this change has greatly improved people’s lives. It saves time, allows people to travel long distances easily, and creates more job and education opportunities. Overall, transportation in Vietnam shows how quickly our country has developed.",
+        "g9_u6_1": "One major lifestyle change in Vietnam over the years is the way people travel. In the past, especially in rural areas, most people used bicycles or simply walked to school, the market, or the rice fields. Motorbikes were rare, and only better-off families could afford one. Roads were narrow and sometimes unpaved, so traveling could be slow and difficult.\n\nToday, things have changed dramatically. Almost every household owns at least one motorbike, and many families even have cars. Roads are wider, smoother, and better maintained. There are also more public transportation options in big cities, such as buses and metro lines. These improvements make traveling faster, easier, and more comfortable.\n\nHowever, this lifestyle change also brings challenges. With more vehicles on the road, traffic jams and air pollution have become serious problems, especially in large cities. People must also be more careful because traffic accidents are common.\n\nDespite the drawbacks, this change has greatly improved people's lives. It saves time, allows people to travel long distances easily, and creates more job and education opportunities. Overall, transportation in Vietnam shows how quickly our country has developed.",
         "g9_u7_1": "A natural wonder I would like to visit is Ha Long Bay, one of the most famous UNESCO World Heritage Sites in Vietnam. Although I have seen many photos and videos of it, I have never had the chance to explore it in person.\n\nHa Long Bay is known for its thousands of limestone islands rising from emerald green water. Some islands have strange shapes, such as a chicken, a dog, or a pair of kissing rocks. Many islands also contain beautiful caves with stalactites and stalagmites formed over millions of years.\n\nIf I have the opportunity to visit Ha Long Bay, I would love to take a boat cruise, enjoy the fresh air, and watch the sunset over the water. I also want to explore the caves and learn about the legends related to the bay, such as the story of the dragons sent to protect Vietnam.\n\nHa Long Bay attracts millions of tourists every year, not only because of its beauty but also because it represents the rich natural heritage of Vietnam. Visiting this place would be an unforgettable experience for me as someone who loves nature and photography.",
         "g9_u8_1": "Last year, I visited Hoi An Ancient Town with my family, and it was one of the most memorable trips I have ever had. Hoi An is well known for its old houses, colourful lanterns, and peaceful atmosphere.\n\nWhen we arrived, I was immediately impressed by the yellow ancient houses with wooden doors and tiled roofs. We walked along narrow streets decorated with hanging lanterns. Everything looked beautiful and full of history. We visited old temples, ancient houses, and traditional handicraft shops. The local people were friendly and always ready to share interesting stories about their culture.\n\nOne of the best moments was walking along the Thu Bon River in the evening. The lanterns were lit up, creating a magical view. We even released small paper lanterns on the water and made wishes.\n\nI would recommend Hoi An to any tourist because it is peaceful, charming, and rich in culture. The food is delicious, the streets are clean, and the atmosphere is perfect for relaxing.",
-        "g9_u9_1": "One variety of English that I find very interesting is British English. I first learned about it through my English textbooks and from watching BBC programs. Compared to American English, British English has a different accent, vocabulary, and sometimes even grammar.\n\nThe pronunciation of British English sounds elegant, soft, and pleasant to listen to. For example, British speakers often pronounce the “t” clearly in words like “water,” while Americans say it more like a “d.” British English also uses some unique vocabulary such as “flat” for apartment, “holiday” for vacation, and “timetable” for schedule.\n\nI find British English interesting because it reminds me of the long history and culture of the United Kingdom. Many famous authors, such as Shakespeare and Charles Dickens, wrote in British English. Learning this variety helps me understand English literature better.\n\nStudying different varieties of English makes the language more fun and helps me communicate with people from different countries. British English is my favourite because of its beautiful pronunciation and rich cultural background.",
-        "g9_u10_1": "One environmental problem that worries me the most is plastic pollution. Every day, huge amounts of plastic waste are thrown away, including bags, bottles, straws, and packaging. Much of this waste ends up in rivers, lakes, and the ocean.\n\nPlastic pollution is dangerous because it takes hundreds of years to decompose. Animals, especially sea creatures like turtles and fish, often mistake plastic for food and swallow it, which can kill them. Plastic also contaminates soil and water, affecting people’s health.\n\nThere are many reasons for plastic pollution. People use disposable plastic items because they are cheap and convenient. Many countries also lack proper recycling systems.\n\nTo reduce plastic pollution, we should start with small actions. For example, we can bring reusable bags when shopping, use refillable water bottles, and reduce the use of plastic straws. Schools and supermarkets should also encourage environmentally friendly products.\n\nProtecting the Earth is everyone’s responsibility. If we don’t take action now, the situation will become much worse in the future.",
+        "g9_u9_1": "One variety of English that I find very interesting is British English. I first learned about it through my English textbooks and from watching BBC programs. Compared to American English, British English has a different accent, vocabulary, and sometimes even grammar.\n\nThe pronunciation of British English sounds elegant, soft, and pleasant to listen to. For example, British speakers often pronounce the 't' clearly in words like 'water,' while Americans say it more like a 'd.' British English also uses some unique vocabulary such as 'flat' for apartment, 'holiday' for vacation, and 'timetable' for schedule.\n\nI find British English interesting because it reminds me of the long history and culture of the United Kingdom. Many famous authors, such as Shakespeare and Charles Dickens, wrote in British English. Learning this variety helps me understand English literature better.\n\nStudying different varieties of English makes the language more fun and helps me communicate with people from different countries. British English is my favourite because of its beautiful pronunciation and rich cultural background.",
+        "g9_u10_1": "One environmental problem that worries me the most is plastic pollution. Every day, huge amounts of plastic waste are thrown away, including bags, bottles, straws, and packaging. Much of this waste ends up in rivers, lakes, and the ocean.\n\nPlastic pollution is dangerous because it takes hundreds of years to decompose. Animals, especially sea creatures like turtles and fish, often mistake plastic for food and swallow it, which can kill them. Plastic also contaminates soil and water, affecting people's health.\n\nThere are many reasons for plastic pollution. People use disposable plastic items because they are cheap and convenient. Many countries also lack proper recycling systems.\n\nTo reduce plastic pollution, we should start with small actions. For example, we can bring reusable bags when shopping, use refillable water bottles, and reduce the use of plastic straws. Schools and supermarkets should also encourage environmentally friendly products.\n\nProtecting the Earth is everyone's responsibility. If we don't take action now, the situation will become much worse in the future.",
         "g9_u11_1": "The electronic device I use every day is my smartphone, and it has become an important part of my daily life. I use it for studying, communication, entertainment, and organising my schedule.\n\nFor studying, my smartphone helps me look up new vocabulary, watch English videos, and review lessons. I join group chats on Zalo where my classmates and I discuss homework or share study materials. I also use apps like Google Classroom or YouTube to learn new things.\n\nMy smartphone is useful for communication as well. I can call my parents, send messages to friends, or take photos of important information. When I travel, the map application helps me find directions easily.\n\nBesides studying and communication, I use my smartphone to relax. I listen to music, watch short videos, and read news online. However, I try to control my screen time so that it does not affect my eyes or my sleep.\n\nOverall, my smartphone is important because it helps me stay connected, learn new things, and manage my daily life efficiently.",
-        "g9_u12_1": "A job I would like to do in the future is becoming an English teacher. I have always enjoyed learning English, and I feel happy when I can help others understand something new. Many of my teachers have inspired me with their kindness and passion for teaching.\n\nTo become a good English teacher, I will need strong communication skills, good pronunciation, and a wide vocabulary. Teachers must also be patient, responsible, and creative because they work with students of different levels and personalities. I think this job suits my character because I am calm, friendly, and willing to help others.\n\nBeing a teacher is meaningful because teachers shape students’ futures. They don’t just teach knowledge; they also teach life skills, confidence, and good values. I hope one day I can stand in front of a classroom, explain lessons clearly, and see my students make progress.\n\nFor me, being an English teacher is not only a job but also a dream that I want to achieve."
+        "g9_u12_1": "A job I would like to do in the future is becoming an English teacher. I have always enjoyed learning English, and I feel happy when I can help others understand something new. Many of my teachers have inspired me with their kindness and passion for teaching.\n\nTo become a good English teacher, I will need strong communication skills, good pronunciation, and a wide vocabulary. Teachers must also be patient, responsible, and creative because they work with students of different levels and personalities. I think this job suits my character because I am calm, friendly, and willing to help others.\n\nBeing a teacher is meaningful because teachers shape students' futures. They don't just teach knowledge; they also teach life skills, confidence, and good values. I hope one day I can stand in front of a classroom, explain lessons clearly, and see my students make progress.\n\nFor me, being an English teacher is not only a job but also a dream that I want to achieve."
       };
 
-      /* ========== DOM ========== */
+      // ========== DOM ==========
       const gradeSelect = document.getElementById("gradeSelect");
       const topicSelect = document.getElementById("topicSelect");
       const questionTextarea = document.getElementById("question");
       const questionTextContainer = document.getElementById("questionTextContainer");
       const showTextBtn = document.getElementById("showTextBtn");
       const speakQuestionBtn = document.getElementById("speakQuestionBtn");
-      const answerText = document.getElementById("answerText");
       const startBtn = document.getElementById("startBtn");
       const stopBtn = document.getElementById("stopBtn");
       const sendBtn = document.getElementById("sendBtn");
@@ -384,7 +369,6 @@
       const progressBar = document.getElementById("progressBar");
       const progressPercent = document.getElementById("progressPercent");
       const timerDisplay = document.getElementById("timerDisplay");
-
       const pendingBox = document.getElementById("pendingBox");
       const pendingInfo = document.getElementById("pendingInfo");
       const resendPendingBtn = document.getElementById("resendPendingBtn");
@@ -392,17 +376,15 @@
 
       // ========== state ==========
       let timerInterval = null;
-      let isRecording = false;
-      let ignore_onend = false;
-      let lastFinalNorm = "";
+      let timeLeft = 180; // 3 phút = 180 giây
+      let isTimerRunning = false;
+      let hasSubmitted = false;
 
-      // ======= unified audio recorder =======
+      // ======= unified audio recorder từ khối 6 =======
       let recorderMode = "";
       let isFullRecordingStarted = false;
       let audioMimeType = "";
       let micStream = null;
-
-      // MediaRecorder
       let mediaRecorder = null;
       let audioChunks = [];
       let fullAudioBlob = null;
@@ -417,7 +399,7 @@
       let wavBuffers = [];
       let wavInputRate = 48000;
 
-      // ========== helpers ==========
+      // ========== helpers từ khối 6 ==========
       function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
       function pickSupportedMime() {
@@ -442,7 +424,7 @@
         fr.readAsDataURL(blob);
       }
 
-      // ===================== CHUNK UPLOAD =====================
+      // ===================== CHUNK UPLOAD từ khối 6 =====================
       function uint8ToBase64(u8) {
         let binary = "";
         const chunk = 0x8000;
@@ -543,7 +525,7 @@
         return result;
       }
 
-      // ===================== WAV FALLBACK =====================
+      // ===================== WAV FALLBACK từ khối 6 =====================
       function downsampleBuffer(inputFloat32, inRate, outRate) {
         if (outRate === inRate) return inputFloat32;
         if (outRate > inRate) return inputFloat32;
@@ -681,7 +663,7 @@
         cb && cb(blob);
       }
 
-      // =================== MediaRecorder path ===================
+      // =================== MediaRecorder path từ khối 6 ===================
       async function startMediaRecordingIfNeeded() {
         if (isFullRecordingStarted && recorderMode === "media" && mediaRecorder) return;
 
@@ -711,7 +693,7 @@
         isFullRecordingStarted = true;
       }
 
-      // ========= unified control =========
+      // ========= unified control từ khối 6 =========
       async function startFullRecordingIfNeeded() {
         try {
           await startMediaRecordingIfNeeded();
@@ -756,13 +738,10 @@
         }
       }
 
-      // ========= SpeechRecognition (TẮT HOÀN TOÀN) =========
-      function initSpeech() {
-        // Tắt hoàn toàn speech recognition
-        return;
-      }
+      // ========= TTS English voice fix từ khối 6 =========
+      let englishVoice = null;
+      let pendingSpeakText = null;
 
-      // ========= TTS English voice fix =========
       function selectEnglishVoice() {
         if (!("speechSynthesis" in window)) return null;
         const voices = window.speechSynthesis.getVoices();
@@ -854,60 +833,23 @@
             topicSelect.appendChild(opt);
           });
         }
-        renderQuestion();
       }
 
-      // ======= question state =======
-      let canViewSuggestion = false;
-
-      function renderQuestion() {
-        const tId = topicSelect.value;
-        const content = GRADE_9_QUESTIONS[tId] || "Content not found.";
-        questionTextarea.value = content;
-        questionTextContainer.style.display = "none";
-        answerText.value = "";
-        sendBtn.disabled = true;
-        stopTimer();
-        
-        isRecording = false;
-        ignore_onend = true;
-        window.speechSynthesis.cancel();
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-        statusEl.textContent = 'Nhấn "Bắt đầu nói" để trả lời.';
-        
-        canViewSuggestion = false;
-        suggestBtn.disabled = true;
-        suggestionsArea.textContent = "(Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)";
-        
-        resultArea.textContent = "Chưa gửi.";
-      }
-
-      gradeSelect.onchange = updateTopics;
-      topicSelect.onchange = renderQuestion;
-      updateTopics();
-      renderQuestion();
-
-      // ======= Step 2 buttons =======
-      showTextBtn.onclick = () => { questionTextContainer.style.display = "block"; };
-      speakQuestionBtn.onclick = () => { speakText(questionTextarea.value); };
-
-      // ===================== TIMER =====================
+      // ======= timer functions =======
       function startTimer() {
-        let duration = 180;
+        timeLeft = 180;
+        isTimerRunning = true;
+        updateTimerDisplay();
         clearInterval(timerInterval);
-        timerDisplay.textContent = "03:00";
+        
         timerInterval = setInterval(() => {
-          duration--;
-          const m = Math.floor(duration / 60);
-          const s = duration % 60;
-          timerDisplay.textContent =
-            (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
-          if (duration <= 0) {
+          timeLeft--;
+          updateTimerDisplay();
+          
+          if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            timerDisplay.textContent = "00:00";
-            // Tự động dừng khi hết giờ
-            if (isRecording) {
+            isTimerRunning = false;
+            if (startBtn.disabled) {
               stopBtn.click();
             }
           }
@@ -916,10 +858,50 @@
 
       function stopTimer() {
         clearInterval(timerInterval);
-        timerDisplay.textContent = "03:00";
+        isTimerRunning = false;
+        timeLeft = 180;
+        updateTimerDisplay();
       }
 
-      // ===================== API CALL =====================
+      function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+
+      // ======= question state =======
+      function resetTopicState() {
+        stopTimer();
+        stopFullRecording(() => {});
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        sendBtn.disabled = true;
+        suggestBtn.disabled = true;
+        hasSubmitted = false;
+        
+        statusEl.textContent = 'Nhấn "Bắt đầu nói" để trả lời. Bạn có 3 phút để nói.';
+        suggestionsArea.textContent = "(Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)";
+      }
+
+      function renderQuestion() {
+        const tId = topicSelect.value;
+        const content = GRADE_9_QUESTIONS[tId] || "Content not found.";
+        questionTextarea.value = content;
+        questionTextContainer.style.display = "none";
+        resetTopicState();
+        window.speechSynthesis.cancel();
+      }
+
+      gradeSelect.onchange = () => { updateTopics(); renderQuestion(); };
+      topicSelect.onchange = renderQuestion;
+      updateTopics();
+      renderQuestion();
+
+      // ======= Step 2 buttons =======
+      showTextBtn.onclick = () => { questionTextContainer.style.display = "block"; };
+      speakQuestionBtn.onclick = () => { speakText(questionTextarea.value); };
+
+      // ===================== API CALL từ khối 6 =====================
       async function callScriptApiNoCors(action, payload) {
         const body = JSON.stringify({ action, ...payload });
         await fetch(APPS_SCRIPT_URL, {
@@ -947,6 +929,7 @@
         return { ok: false, error: lastErr };
       }
 
+      // ======= pending submission functions từ khối 6 =======
       function savePending(payload) {
         try {
           const obj = { payload, savedAt: new Date().toISOString() };
@@ -993,8 +976,6 @@
         if (out.ok) {
           clearPending();
           resultArea.innerHTML = '<span class="status-ok">Đã gửi lại thành công!</span>';
-          canViewSuggestion = true;
-          suggestBtn.disabled = false;
         } else {
           resultArea.innerHTML = '<span class="status-error">Gửi lại thất bại. Vui lòng thử lại khi mạng ổn định.</span>';
         }
@@ -1016,7 +997,7 @@
           if (recorderMode === "wav") {
             statusEl.textContent = "Đang ghi âm (WAV fallback – iPhone/iPad OK). Nói to và rõ.";
           } else {
-            statusEl.textContent = "Đang ghi âm... Nói to và rõ.";
+            statusEl.textContent = "Đang ghi âm... Nói to và rõ. Bạn có 3 phút.";
           }
         } catch (err) {
           console.log(err);
@@ -1024,45 +1005,38 @@
           return;
         }
 
-        isRecording = true;
+        startTimer();
         startBtn.disabled = true;
         stopBtn.disabled = false;
-        statusEl.textContent = "Đang ghi âm... Hãy nói câu trả lời của bạn.";
-        startTimer();
+        sendBtn.disabled = true;
       };
 
       stopBtn.onclick = () => {
-        isRecording = false;
-        ignore_onend = true;
-
-        pauseFullRecording();
         stopTimer();
-
-        setTimeout(() => {
-          statusEl.textContent = "Đã dừng ghi âm.";
-          startBtn.disabled = false;
+        pauseFullRecording();
+        
+        stopFullRecording((blob) => {
+          fullAudioBlob = blob;
+          statusEl.textContent = "Đã dừng ghi âm. Bạn có thể nộp bài.";
+          startBtn.disabled = true;
           stopBtn.disabled = true;
           sendBtn.disabled = false;
-        }, 500);
+        });
       };
 
       clearBtn.onclick = () => {
-        if (!confirm("Bạn muốn xóa hết nội dung vừa nói để làm lại?")) return;
-        isRecording = false;
-        ignore_onend = true;
-
-        answerText.value = "";
-        sendBtn.disabled = true;
-
-        statusEl.textContent = "Đã xóa. Nhấn Bắt đầu nói để làm lại.";
+        if (!confirm("Bạn muốn xóa bài nói hiện tại và làm lại?")) return;
+        stopTimer();
+        stopFullRecording(() => {});
+        
         startBtn.disabled = false;
         stopBtn.disabled = true;
-
-        canViewSuggestion = false;
+        sendBtn.disabled = true;
+        hasSubmitted = false;
+        
+        statusEl.textContent = "Đã xóa. Nhấn Bắt đầu nói để làm lại.";
         suggestBtn.disabled = true;
         suggestionsArea.textContent = "(Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)";
-
-        stopTimer();
       };
 
       // ===================== SEND =====================
@@ -1077,19 +1051,15 @@
           return;
         }
 
-        // Luôn gửi transcript rỗng (vì chỉ cần audio)
-        const fullTranscript = "";
-        const questionSummary = topicLabel;
-
         sendBtn.disabled = true;
         resultArea.textContent = "Đang xử lý audio...";
-        pauseFullRecording();
 
         const sendTranscriptOnly = async () => {
           resultArea.textContent = "Đang gửi transcript...";
           const payload = {
             studentName: n, studentClass: c, topicLabel,
-            questionSummary, transcript: fullTranscript,
+            questionSummary: topicLabel,
+            transcript: "", // Khối 9 không có transcript
             mimeType: "", dataUrl: ""
           };
           const out = await submitWithRetry(payload);
@@ -1097,7 +1067,7 @@
 
           if (out.ok) {
             resultArea.innerHTML = '<span class="status-ok">Đã gửi transcript (không có audio).</span>';
-            canViewSuggestion = true;
+            hasSubmitted = true;
             suggestBtn.disabled = false;
           } else {
             savePending(payload);
@@ -1105,7 +1075,7 @@
           }
         };
 
-        if (!isFullRecordingStarted) {
+        if (!isFullRecordingStarted || !fullAudioBlob || !fullAudioBlob.size) {
           sendTranscriptOnly();
           return;
         }
@@ -1122,7 +1092,7 @@
               const mime = blob.type || audioMimeType || "audio/webm";
               const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
 
-              // 1) Blob nhỏ: gửi dataUrl
+              // Blob nhỏ: gửi dataUrl
               if (blob.size <= SMALL_BLOB_MAX) {
                 resultArea.textContent = `Audio ${sizeMB}MB: đang chuyển đổi...`;
                 const dataUrl = await new Promise((resolve) => {
@@ -1145,8 +1115,8 @@
 
                 const payload = {
                   studentName: n, studentClass: c, topicLabel,
-                  questionSummary,
-                  transcript: fullTranscript,
+                  questionSummary: topicLabel,
+                  transcript: "", // Khối 9 không có transcript
                   mimeType: finalMime,
                   dataUrl: finalDataUrl
                 };
@@ -1162,7 +1132,7 @@
                   resultArea.innerHTML = finalDataUrl
                     ? '<span class="status-ok">Đã nộp thành công (kèm audio)!</span>'
                     : '<span class="status-ok">Đã nộp transcript (audio quá lớn nên không gửi kèm).</span>';
-                  canViewSuggestion = true;
+                  hasSubmitted = true;
                   suggestBtn.disabled = false;
                 } else {
                   savePending(payload);
@@ -1171,7 +1141,7 @@
                 return;
               }
 
-              // 2) Blob lớn: CHUNK upload
+              // Blob lớn: CHUNK upload
               resultArea.textContent = `Audio ${sizeMB}MB: đang chia nhỏ & upload... (vui lòng không thoát trang)`;
 
               try {
@@ -1179,13 +1149,13 @@
                   studentName: n,
                   studentClass: c,
                   topicLabel,
-                  questionSummary,
-                  transcript: fullTranscript
+                  questionSummary: topicLabel,
+                  transcript: "" // Khối 9 không có transcript
                 });
 
                 sendBtn.disabled = false;
                 resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công! Vui lòng kiểm tra email GV (sẽ có link audio).</span>';
-                canViewSuggestion = true;
+                hasSubmitted = true;
                 suggestBtn.disabled = false;
               } catch (e) {
                 console.log(e);
@@ -1203,14 +1173,24 @@
 
       // gợi ý
       suggestBtn.onclick = () => {
-        if (!canViewSuggestion) {
-          alert("Bạn chỉ được xem gợi ý sau khi đã hoàn thành và gửi bài cho giáo viên.");
+        if (!hasSubmitted) {
+          alert("Bạn cần gửi bài cho giáo viên trước khi xem gợi ý.");
           return;
         }
         const topicId = topicSelect.value;
         const text = SUGGESTED_ANSWERS[topicId];
         suggestionsArea.textContent = text || "Hiện chưa có gợi ý trả lời cho chủ đề này. Thầy cô sẽ cập nhật sau.";
       };
+
+      // Auto-stop recording when timer reaches 0
+      function checkTimerAndStop() {
+        if (timeLeft <= 0 && startBtn.disabled) {
+          stopBtn.click();
+        }
+      }
+
+      // Check timer every second
+      setInterval(checkTimerAndStop, 1000);
     </script>
   </body>
 </html>
