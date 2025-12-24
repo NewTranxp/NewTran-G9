@@ -23,7 +23,6 @@
   </div>
 
   <script>
-    // ====== Your Apps Script Web App URL (/exec) ======
     var TARGET = "https://script.google.com/macros/s/AKfycbwLHeDPq4FWvPbt5FUQWNAmvnW_c7bXScXpTUhzlPBCSzOfrSrSBYOeLe5C_ZYGZvcFBg/exec";
 
     function toHttps_(url){
@@ -32,25 +31,20 @@
     }
 
     function buildAndroidChromeIntent_(url){
-      // intent://<host><path>#Intent;scheme=https;package=com.android.chrome;end
       try{
         var u = new URL(url);
         var hostPath = (u.host||"") + (u.pathname||"") + (u.search||"") + (u.hash||"");
         return "intent://" + hostPath.replace(/^\/+/, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-      }catch(e){
-        return "";
-      }
+      }catch(e){ return ""; }
     }
 
     function go_(){
       var url = toHttps_(TARGET);
-      // Android: try Chrome intent first (best for Zalo/FB in-app)
       var ua = navigator.userAgent || "";
       if (/Android/i.test(ua)) {
         var intentUrl = buildAndroidChromeIntent_(url);
         if (intentUrl) { location.href = intentUrl; return; }
       }
-      // Fallback
       try { location.replace(url); } catch(e){ location.href = url; }
     }
 
@@ -59,7 +53,6 @@
     a.href = TARGET;
     a.textContent = TARGET;
 
-    // Auto redirect after a short delay
     setTimeout(go_, 350);
   </script>
 </body>
