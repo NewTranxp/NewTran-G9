@@ -1,1197 +1,995 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>New Tran English App - Grade 9 (Audio-only)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      --bg-gradient: linear-gradient(135deg, #fce38a, #f38181);
-      --card-bg: #ffffffcc;
-      --primary: #ff6f61;
-      --primary-dark: #e65b4f;
-      --accent: #45b7d1;
-      --accent-soft: #e0f7ff;
-      --text-main: #333;
-      --timer-color: #d32f2f;
-    }
-    *{ box-sizing:border-box; }
-    body{
-      font-family:"Segoe UI", system-ui, -apple-system, sans-serif;
-      margin:0; min-height:100vh;
-      background:var(--bg-gradient); color:var(--text-main);
-      padding-bottom:50px;
-    }
-    .page{ max-width:960px; margin:0 auto; padding:16px 12px 40px; }
-    h1{ text-align:center; color:#fff; text-shadow:0 2px 4px rgba(0,0,0,0.18); margin:8px 0 4px; font-size:22px; }
-    .subtitle{ text-align:center; color:#fff; font-size:13px; margin-bottom:10px; }
-    .card{
-      background:var(--card-bg); backdrop-filter: blur(6px);
-      border-radius:16px; padding:14px 16px; margin-top:12px;
-      box-shadow:0 6px 14px rgba(0,0,0,0.15);
-    }
-    .card-header{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-    .pill{ padding:2px 10px; border-radius:999px; font-size:11px; font-weight:600; background:var(--accent-soft); color:#0077a3; white-space:nowrap; }
-    .label{ font-weight:600; margin:6px 0 2px; font-size:14px; }
-    input, select, textarea{
-      width:100%; border-radius:10px; border:1px solid #ddd;
-      padding:10px; margin:2px 0 8px; font-size:16px;
-      font-family:inherit; outline:none;
-      transition:border 0.15s, box-shadow 0.15s;
-    }
-    input:focus, select:focus, textarea:focus{
-      border-color: var(--accent);
-      box-shadow:0 0 0 2px rgba(69,183,209,0.25);
-    }
-    textarea{ resize:vertical; min-height:80px; line-height:1.5; }
-    textarea[readonly]{ background-color:#e9ecef; color:#495057; cursor:not-allowed; }
+  <head>
+    <meta charset="UTF-8" />
+    <title>New Tran English App - Grade 9 (Audio Only)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg-gradient: linear-gradient(135deg, #fce38a, #f38181);
+        --card-bg: #ffffffcc;
+        --primary: #ff6f61;
+        --primary-dark: #e65b4f;
+        --accent: #45b7d1;
+        --accent-soft: #e0f7ff;
+        --text-main: #333;
+        --timer-color: #d32f2f;
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        margin: 0; min-height: 100vh;
+        background: var(--bg-gradient); color: var(--text-main);
+        padding-bottom: 50px;
+      }
+      .page { max-width: 960px; margin: 0 auto; padding: 16px 12px 40px; }
+      h1 { text-align: center; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.18); margin: 8px 0 4px; font-size: 22px; }
+      .subtitle { text-align: center; color: #fff; font-size: 13px; margin-bottom: 10px; }
+      .card { background: var(--card-bg); backdrop-filter: blur(6px); border-radius: 16px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+      .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+      .pill { padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--accent-soft); color: #0077a3; white-space: nowrap; }
+      .label { font-weight: 600; margin: 6px 0 2px; font-size: 14px; }
 
-    button{
-      border:none; border-radius:999px; padding:10px 20px;
-      font-size:15px; font-weight:600; cursor:pointer;
-      font-family:inherit; display:inline-flex; align-items:center; gap:6px;
-      transition:background 0.15s, transform 0.1s;
-      touch-action: manipulation;
-    }
-    button:active{ transform: translateY(2px); }
-    .btn-primary{ background:var(--primary); color:#fff; box-shadow:0 4px 10px rgba(230,91,79,0.45); }
-    .btn-primary:hover{ background:var(--primary-dark); }
-    .btn-secondary{ background:#fff; color:var(--primary); border:1px solid rgba(0,0,0,0.06); }
-    .btn-secondary:disabled, .btn-primary:disabled{ opacity:0.65; cursor:default; box-shadow:none; }
-    .btn-danger{ background:#ff4444; color:white; box-shadow:0 4px 10px rgba(255,68,68,0.4); }
-    .btn-speak{ background:#4caf50; color:#fff; box-shadow:0 4px 10px rgba(76,175,80,0.4); }
-    .btn-speak:hover{ background:#43a047; }
+      input, select, textarea {
+        width: 100%; border-radius: 10px; border: 1px solid #ddd;
+        padding: 10px; margin: 2px 0 8px; font-size: 16px;
+        font-family: inherit; outline: none;
+        transition: border 0.15s, box-shadow 0.15s;
+      }
+      input:focus, select:focus, textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(69, 183, 209, 0.25);
+      }
+      textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+      textarea[readonly] { background-color: #e9ecef; color: #495057; cursor: not-allowed; }
 
-    .timer-display{
-      font-size:28px; font-weight:800; color:var(--timer-color);
-      background:#fff; padding:5px 15px; border-radius:8px;
-      border:2px solid var(--timer-color); margin-left:auto;
-    }
+      button {
+        border: none; border-radius: 999px; padding: 10px 20px;
+        font-size: 15px; font-weight: 600; cursor: pointer;
+        font-family: inherit; display: inline-flex; align-items: center;
+        gap: 6px; transition: background 0.15s, transform 0.1s;
+        touch-action: manipulation;
+      }
+      button:active { transform: translateY(2px); }
+      .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(230, 91, 79, 0.45); }
+      .btn-primary:hover { background: var(--primary-dark); }
+      .btn-secondary { background: #fff; color: var(--primary); border: 1px solid rgba(0,0,0,0.06); }
+      .btn-secondary:disabled, .btn-primary:disabled { opacity: 0.65; cursor: default; box-shadow: none; }
+      .btn-danger { background: #ff4444; color: white; box-shadow: 0 4px 10px rgba(255, 68, 68, 0.4); }
+      .btn-speak { background: #4caf50; color: #fff; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4); }
+      .btn-speak:hover { background: #43a047; }
 
-    .small{ font-size:12px; color:#666; }
-    .status{ font-size:13px; margin-top:4px; font-weight:500; }
-    .status-ok{ color:#1b8f3b; }
-    .status-error{ color:#c62828; }
+      .timer-display {
+        font-size: 28px; font-weight: 800; color: var(--timer-color);
+        background: #fff; padding: 5px 15px; border-radius: 8px;
+        border: 2px solid var(--timer-color); margin-left: auto;
+        min-width: 120px; text-align: center;
+      }
 
-    #questionTextContainer{ display:none; animation:fadeIn 0.3s; }
-    @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+      #questionTextContainer { display: none; animation: fadeIn 0.3s; }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .marquee{
-      width:100%; overflow:hidden; white-space:nowrap; box-sizing:border-box;
-      background:rgba(255,255,255,0.18); padding:6px 0; margin-bottom:6px;
-      border-radius:8px; backdrop-filter: blur(3px);
-    }
-    .marquee span{
-      display:inline-block; padding-left:100%; font-weight:bold;
-      color:#d50000; font-size:16px; animation:marqueeAnim 14s linear infinite;
-    }
-    @keyframes marqueeAnim{ 0%{transform:translateX(0%);} 100%{transform:translateX(-100%);} }
+      .marquee {
+        width: 100%; overflow: hidden; white-space: nowrap; box-sizing: border-box;
+        background: rgba(255,255,255,0.18); padding: 6px 0; margin-bottom: 6px;
+        border-radius: 8px; backdrop-filter: blur(3px);
+      }
+      .marquee span {
+        display: inline-block; padding-left: 100%; font-weight: bold;
+        color: #d50000; font-size: 16px; animation: marqueeAnim 14s linear infinite;
+      }
+      @keyframes marqueeAnim { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }
 
-    #inapp-overlay{
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background:rgba(0,0,0,0.9); z-index:9999; color:white;
-      display:none; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:20px;
-    }
-    .arrow-up{
-      font-size:40px; margin-bottom:10px; animation:bounce 1s infinite;
-      position:absolute; top:20px; right:20px;
-    }
-    @keyframes bounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+      #inapp-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9); z-index: 9999; color: white;
+        display: none; flex-direction: column; align-items: center;
+        justify-content: center; text-align: center; padding: 20px;
+      }
+      .arrow-up { font-size: 40px; margin-bottom: 10px; animation: bounce 1s infinite; position: absolute; top: 20px; right: 20px; }
+      @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-    .footer{
-      text-align:center; margin-top:16px; color:#fff; font-size:13px;
-      text-shadow:0 1px 3px rgba(0,0,0,0.3);
-    }
+      .status { font-size: 13px; margin-top: 4px; font-weight: 500; }
+      .status-ok { color: #1b8f3b; }
+      .status-error { color: #c62828; }
 
-    .mini-banner{
-      border-radius:12px; padding:10px 12px; background:rgba(255,255,255,0.85);
-      border:1px solid rgba(0,0,0,0.06); margin-top:10px;
-    }
+      .footer {
+        text-align: center;
+        margin-top: 16px;
+        color: #fff;
+        font-size: 13px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      }
 
-    .upload-progress{
-      display:none; margin-top:12px; padding:10px;
-      background:#f5f5f5; border-radius:8px; border:1px solid #ddd;
-    }
-    .progress-header{
-      display:flex; justify-content:space-between; margin-bottom:5px;
-      font-size:13px; font-weight:500;
-    }
-    .progress-bar-container{
-      width:100%; height:6px; background:#e0e0e0; border-radius:3px; overflow:hidden;
-    }
-    .progress-bar{
-      width:0%; height:100%; background:#4caf50; transition:width 0.3s ease;
-    }
-  </style>
-</head>
+      /* Upload Progress */
+      .upload-progress {
+        display: none;
+        margin-top: 12px;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .progress-bar-container {
+        width: 100%;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #4caf50;
+        transition: width 0.3s ease;
+      }
 
-<body>
-  <div id="inapp-overlay">
-    <div class="arrow-up">↗</div>
-    <h3>⚠️ Cảnh báo trình duyệt</h3>
-    <p>Microphone không hoạt động trên Zalo/Facebook.</p>
-    <p style="background:#444; padding:15px; border-radius:8px; margin-top:15px;">
-      Vui lòng nhấn dấu <strong>3 chấm (...)</strong> góc trên phải <br />
-      Chọn <strong>"Mở bằng trình duyệt" (Open in Browser)</strong>
-    </p>
-  </div>
+      .mini-note {
+        background: #e8f5e8;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border-left: 4px solid #4caf50;
+        font-size: 14px;
+      }
+    </style>
+  </head>
 
-  <div class="marquee">
-    <span>★ Mr. Tân Trần Ngọc – Xuân Phú lower secondary school ★</span>
-  </div>
-
-  <div class="page">
-    <h1>New Tran English App</h1>
-    <div class="subtitle">Luyện nói tiếng Anh – Grade 9 (Audio-only)</div>
-
-    <!-- Pending resend -->
-    <div id="pendingBox" class="mini-banner" style="display:none;">
-      <div><strong>⚠️ Có 1 bài chưa gửi xong (do lỗi mạng)</strong></div>
-      <div class="small" id="pendingInfo"></div>
-      <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="resendPendingBtn" class="btn-primary" type="button">📤 Gửi lại bài vừa lưu</button>
-        <button id="clearPendingBtn" class="btn-secondary" type="button">🧹 Xóa bài lưu</button>
-      </div>
+  <body>
+    <div id="inapp-overlay">
+      <div class="arrow-up">↗</div>
+      <h3>⚠️ Cảnh báo trình duyệt</h3>
+      <p>Bạn đang mở link này trên Zalo/Facebook.</p>
+      <p>Microphone sẽ <strong>không hoạt động</strong> ở đây.</p>
+      <p style="background:#444; padding:15px; border-radius:8px; margin-top:15px;">
+        Vui lòng nhấn dấu <strong>3 chấm (...)</strong> góc trên phải <br />
+        Chọn <strong>"Mở bằng trình duyệt" (Open in Browser)</strong>
+      </p>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="pill">Bước 0</div>
-        <div><strong>Thông tin học sinh</strong></div>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <div style="flex:2;">
-          <div class="label">Họ và tên:</div>
-          <input id="studentName" placeholder="Nguyễn Văn Nam" />
+    <div class="marquee">
+      <span>★ Mr. Tân Trần Ngọc – Xuân Phú lower secondary school ★</span>
+    </div>
+
+    <div class="page">
+      <h1>New Tran English App</h1>
+      <div class="subtitle">Luyện nói tiếng Anh – Grade 9 (Audio Only)</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="pill">Bước 0</div>
+          <div><strong>Thông tin học sinh</strong></div>
         </div>
-        <div style="flex:1;">
-          <div class="label">Lớp:</div>
-          <input id="studentClass" placeholder="9A" />
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="pill">Bước 1</div>
-        <div><strong>Chọn bài luyện nói</strong></div>
-      </div>
-      <div class="label">Khối lớp:</div><select id="gradeSelect"></select>
-      <div class="label">Chủ đề:</div><select id="topicSelect"></select>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="pill">Bước 2</div>
-        <div><strong>Nghe & Hiểu yêu cầu</strong></div>
-      </div>
-      <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
-        <button id="speakQuestionBtn" class="btn-speak" type="button">🔊 Nghe đề bài</button>
-        <button id="showTextBtn" class="btn-secondary" type="button">👁️ Hiện văn bản</button>
-      </div>
-      <div id="questionTextContainer">
-        <div class="label">Nội dung yêu cầu:</div>
-        <textarea id="question" rows="6" readonly style="background:#f9f9f9; color:#555; font-size:15px;"></textarea>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="pill">Bước 3</div>
-        <div><strong>Ghi âm & Nộp bài</strong></div>
-      </div>
-
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
-        <button id="startBtn" class="btn-primary" type="button">🎙 Bắt đầu ghi âm</button>
-        <button id="stopBtn" class="btn-secondary" type="button" disabled>⏹ Dừng</button>
-        <div id="timerDisplay" class="timer-display">03:00</div>
-      </div>
-
-      <div id="status" class="status">Nhấn "Bắt đầu ghi âm" để trả lời.</div>
-
-      <div style="background:#e8f5e8; padding:10px; border-radius:8px; margin:10px 0; border-left:4px solid #4caf50;">
-        <strong>📢 Lưu ý:</strong> Ứng dụng chỉ yêu cầu <strong>ghi âm (audio)</strong>. Không cần nhập transcript.
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="sendBtn" class="btn-primary" type="button" disabled style="flex:1; justify-content:center;">📩 Nộp audio cho GV</button>
-        <button id="suggestBtn" class="btn-secondary" type="button" disabled style="flex:1; justify-content:center;">💡 Xem gợi ý</button>
-      </div>
-
-      <div id="uploadProgress" class="upload-progress">
-        <div class="progress-header">
-          <span>Đang tải lên...</span>
-          <span id="progressPercent">0%</span>
-        </div>
-        <div class="progress-bar-container">
-          <div id="progressBar" class="progress-bar"></div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div style="flex:2;">
+            <div class="label">Họ và tên:</div>
+            <input id="studentName" placeholder="Nguyễn Văn Nam" />
+          </div>
+          <div style="flex:1;">
+            <div class="label">Lớp:</div>
+            <input id="studentClass" placeholder="9A" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h2>Kết quả gửi</h2>
-      <div id="resultArea" class="small">Chưa gửi.</div>
-    </div>
-
-    <div class="card">
-      <h2>Gợi ý trả lời / Suggested Answers</h2>
-      <div id="suggestionsArea" class="small" style="white-space: pre-line; background:#fff; padding:10px; border-radius:8px; border:1px solid #eee;">
-        (Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)
+      <div class="card">
+        <div class="card-header">
+          <div class="pill">Bước 1</div>
+          <div><strong>Chọn bài luyện nói</strong></div>
+        </div>
+        <div class="label">Khối lớp:</div><select id="gradeSelect"></select>
+        <div class="label">Chủ đề:</div><select id="topicSelect"></select>
       </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="pill">Bước 2</div>
+          <div><strong>Nghe & Hiểu yêu cầu</strong></div>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+          <button id="speakQuestionBtn" class="btn-speak" type="button">🔊 Nghe đề bài</button>
+          <button id="showTextBtn" class="btn-secondary" type="button">👁️ Hiện văn bản</button>
+        </div>
+        <div id="questionTextContainer">
+          <div class="label">Nội dung yêu cầu:</div>
+          <textarea id="question" rows="6" readonly style="background:#f9f9f9; color:#555; font-size:15px;"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="pill">Bước 3</div>
+          <div><strong>Ghi âm & Nộp</strong></div>
+        </div>
+
+        <div class="mini-note">
+          <strong>📢 Lưu ý:</strong> Ứng dụng chỉ yêu cầu <strong>ghi âm</strong>. Không có transcript.
+          Bạn cần bấm ghi âm và đi hết bài rồi mới nộp.
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+          <button id="startBtn" class="btn-primary" type="button">🎙 Bắt đầu nói</button>
+          <button id="stopBtn" class="btn-secondary" type="button" disabled>⏹ Dừng & Qua đề tiếp</button>
+          <div id="timerDisplay" class="timer-display">03:00</div>
+        </div>
+
+        <div id="status" class="status">Nhấn "Bắt đầu nói" để trả lời.</div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <button id="sendBtn" class="btn-primary" type="button" style="flex:1; justify-content:center;">📩 Nộp audio cho GV</button>
+          <button id="suggestBtn" class="btn-secondary" type="button" disabled style="flex:1; justify-content:center;">💡 Xem gợi ý</button>
+        </div>
+
+        <div id="uploadProgress" class="upload-progress">
+          <div class="progress-header">
+            <span>Đang tải lên...</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Kết quả gửi</h2>
+        <div id="resultArea" class="small">Chưa gửi.</div>
+      </div>
+
+      <div class="card">
+        <h2>Gợi ý trả lời / Suggested Answers</h2>
+        <div id="suggestionsArea" class="small"
+          style="white-space: pre-line; background:#fff; padding:10px; border-radius:8px; border:1px solid #eee;">
+          (Bạn sẽ xem được gợi ý sau khi đã hoàn thành bài và nộp cho giáo viên.)
+        </div>
+      </div>
+
+      <div class="footer">© New Tran English App – Tân Trần Ngọc &amp; Google Apps Script</div>
     </div>
 
-    <div class="footer">© New Tran English App – Tân Trần Ngọc &amp; Google Apps Script</div>
-  </div>
+    <script>
+      // ===================== APPS SCRIPT URL (MUST be /exec) =====================
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1w3QWL0-74WQkbKRdH5AtrnngHB-ZBQ8agUz4UgpGDAOyi76zahlZSdBuYQ9vlJyj5w/exec";
+      // ==========================================================================
 
-<script>
-  // ===================== APPS SCRIPT URL (PASTE YOUR /exec HERE) =====================
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1w3QWL0-74WQkbKRdH5AtrnngHB-ZBQ8agUz4UgpGDAOyi76zahlZSdBuYQ9vlJyj5w/exec";
-  // ================================================================================
+      // ===================== CONFIG =====================
+      const TOTAL_QUESTIONS = 1; // Grade 9: 1 topic = 1 task. (Audio full bài vẫn là 1 file)
+      const SPEAK_TIME_SECONDS = 180; // 03:00
+      const MAX_DATAURL_CHARS = 28_000_000;
+      const SMALL_BLOB_MAX = 4 * 1024 * 1024; // <= 4MB dataUrl, >4MB chunk upload
 
-  // ======= pending storage (like Grade 6) =======
-  const PENDING_KEY = "NEWTRAN_G9_PENDING_AUDIO_V1";
+      // ===================== iOS/Safari TTS English voice fix =====================
+      let englishVoice = null;
+      let pendingSpeakText = null;
 
-  // ======= chống quá dung lượng (base64) =======
-  const MAX_DATAURL_CHARS = 28_000_000;
-  const SMALL_BLOB_MAX = 4 * 1024 * 1024; // <=4MB send as dataUrl; >4MB use chunk upload
+      function selectEnglishVoice() {
+        if (!("speechSynthesis" in window)) return null;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || !voices.length) return null;
 
-  // ===== Timer =====
-  let timerInterval = null;
-  let remainingSec = 180;
+        const preferredNames = ["Samantha", "Karen", "Daniel", "Moira", "Serena", "Martha"];
 
-  // ======= unified audio recorder (Grade 6 optimized) =======
-  let recorderMode = "";
-  let isFullRecordingStarted = false;
-  let audioMimeType = "";
-  let micStream = null;
+        let v =
+          voices.find(v => preferredNames.includes(v.name)) ||
+          voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en-us")) ||
+          voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en-gb")) ||
+          voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en"));
 
-  // MediaRecorder
-  let mediaRecorder = null;
-  let audioChunks = [];
-  let fullAudioBlob = null;
-
-  // WAV fallback recorder (WebAudio)
-  const WAV_TARGET_RATE = 16000;
-  let wavCtx = null;
-  let wavSource = null;
-  let wavProcessor = null;
-  let wavGain0 = null;
-  let wavPaused = true;
-  let wavBuffers = [];
-  let wavInputRate = 48000;
-
-  // UI
-  const getEl = (id) => document.getElementById(id);
-  const gradeSelect = getEl("gradeSelect");
-  const topicSelect = getEl("topicSelect");
-  const questionTextarea = getEl("question");
-  const questionTextContainer = getEl("questionTextContainer");
-  const resultArea = getEl("resultArea");
-  const statusEl = getEl("status");
-  const startBtn = getEl("startBtn");
-  const stopBtn = getEl("stopBtn");
-  const sendBtn = getEl("sendBtn");
-  const suggestBtn = getEl("suggestBtn");
-  const suggestionsArea = getEl("suggestionsArea");
-  const uploadProgress = getEl("uploadProgress");
-  const progressBar = getEl("progressBar");
-  const progressPercent = getEl("progressPercent");
-
-  const pendingBox = getEl("pendingBox");
-  const pendingInfo = getEl("pendingInfo");
-  const resendPendingBtn = getEl("resendPendingBtn");
-  const clearPendingBtn = getEl("clearPendingBtn");
-
-  let canViewSuggestion = false;
-
-  // ---------- helpers ----------
-  function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
-
-  function pickSupportedMime() {
-    const candidates = ["audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus","audio/ogg"];
-    if (!window.MediaRecorder) return "";
-    for (const t of candidates) {
-      try { if (MediaRecorder.isTypeSupported(t)) return t; } catch (e) {}
-    }
-    return "";
-  }
-
-  async function ensureMicStream() {
-    if (micStream) return micStream;
-    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    return micStream;
-  }
-
-  function blobToDataUrl(blob, cb) {
-    const fr = new FileReader();
-    fr.onload = () => cb(fr.result);
-    fr.onerror = () => cb(null);
-    fr.readAsDataURL(blob);
-  }
-
-  // ===================== CHUNK UPLOAD (NO-CORS) =====================
-  function uint8ToBase64(u8) {
-    let binary = "";
-    const chunk = 0x8000;
-    for (let i = 0; i < u8.length; i += chunk) {
-      binary += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
-    }
-    return btoa(binary);
-  }
-
-  async function uploadAudioInChunksNoCors(blob, mimeType, meta) {
-    const uploadId = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
-    const bytes = new Uint8Array(await blob.arrayBuffer());
-
-    const chunkBytes = 200 * 1024;
-    const total = Math.ceil(bytes.length / chunkBytes);
-
-    uploadProgress.style.display = "block";
-    progressBar.style.width = "0%";
-    progressPercent.textContent = "0%";
-
-    const uploadChunkWithRetry = async (idx, b64, retries = 3) => {
-      for (let attempt = 0; attempt < retries; attempt++) {
-        try {
-          await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify({ action: "uploadChunk", uploadId, idx, total, mimeType, b64 })
-          });
-          return true;
-        } catch (err) {
-          if (attempt < retries - 1) await sleep(500 * (attempt + 1));
-        }
+        englishVoice = v || null;
+        return englishVoice;
       }
-      return false;
-    };
 
-    for (let idx = 0; idx < total; idx++) {
-      const start = idx * chunkBytes;
-      const end = Math.min(start + chunkBytes, bytes.length);
-      const part = bytes.subarray(start, end);
-      const b64 = uint8ToBase64(part);
-
-      const ok = await uploadChunkWithRetry(idx, b64);
-      if (!ok) throw new Error(`Failed chunk ${idx + 1}/${total}`);
-
-      const percent = Math.round(((idx + 1) / total) * 100);
-      progressBar.style.width = `${percent}%`;
-      progressPercent.textContent = `${percent}%`;
-
-      await sleep(250);
-    }
-
-    const finalizeWithRetry = async (retries = 3) => {
-      for (let attempt = 0; attempt < retries; attempt++) {
-        try {
-          await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify({ action: "finalizeUpload", uploadId, total, mimeType, ...meta })
-          });
-          return { ok: true, uploadId, total };
-        } catch (err) {
-          if (attempt < retries - 1) await sleep(1000 * (attempt + 1));
-        }
-      }
-      throw new Error("Finalize failed");
-    };
-
-    const res = await finalizeWithRetry();
-
-    setTimeout(() => { uploadProgress.style.display = "none"; }, 1000);
-    return res;
-  }
-
-  // ===================== WAV FALLBACK =====================
-  function downsampleBuffer(inputFloat32, inRate, outRate) {
-    if (outRate === inRate) return inputFloat32;
-    if (outRate > inRate) return inputFloat32;
-
-    const ratio = inRate / outRate;
-    const newLen = Math.round(inputFloat32.length / ratio);
-    const result = new Float32Array(newLen);
-
-    let offsetResult = 0;
-    let offsetBuffer = 0;
-
-    while (offsetResult < result.length) {
-      const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
-      let accum = 0, count = 0;
-      for (let i = offsetBuffer; i < nextOffsetBuffer && i < inputFloat32.length; i++) {
-        accum += inputFloat32[i];
-        count++;
-      }
-      result[offsetResult] = count ? (accum / count) : 0;
-      offsetResult++;
-      offsetBuffer = nextOffsetBuffer;
-    }
-    return result;
-  }
-
-  function floatTo16BitPCM(float32Array) {
-    const out = new Int16Array(float32Array.length);
-    for (let i = 0; i < float32Array.length; i++) {
-      let s = Math.max(-1, Math.min(1, float32Array[i]));
-      out[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
-    }
-    return out;
-  }
-
-  function encodeWav(int16Data, sampleRate) {
-    const buffer = new ArrayBuffer(44 + int16Data.length * 2);
-    const view = new DataView(buffer);
-
-    function writeString(offset, str){
-      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
-    }
-
-    const numChannels = 1;
-    const bitsPerSample = 16;
-    const byteRate = sampleRate * numChannels * bitsPerSample / 8;
-    const blockAlign = numChannels * bitsPerSample / 8;
-    const dataSize = int16Data.length * 2;
-
-    writeString(0, "RIFF");
-    view.setUint32(4, 36 + dataSize, true);
-    writeString(8, "WAVE");
-    writeString(12, "fmt ");
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true);
-    view.setUint16(22, numChannels, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, byteRate, true);
-    view.setUint16(32, blockAlign, true);
-    view.setUint16(34, bitsPerSample, true);
-    writeString(36, "data");
-    view.setUint32(40, dataSize, true);
-
-    let offset = 44;
-    for (let i = 0; i < int16Data.length; i++, offset += 2) {
-      view.setInt16(offset, int16Data[i], true);
-    }
-    return new Blob([buffer], { type: "audio/wav" });
-  }
-
-  async function startWavRecordingIfNeeded() {
-    if (isFullRecordingStarted && recorderMode === "wav") return;
-
-    await ensureMicStream();
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) throw new Error("WebAudio not supported");
-
-    wavCtx = new AudioCtx({ latencyHint: "interactive" });
-    try { await wavCtx.resume(); } catch(e){}
-
-    wavInputRate = wavCtx.sampleRate || 48000;
-    wavBuffers = [];
-    wavPaused = true;
-
-    wavSource = wavCtx.createMediaStreamSource(micStream);
-    const bufferSize = 4096;
-    wavProcessor = wavCtx.createScriptProcessor(bufferSize, 1, 1);
-
-    wavGain0 = wavCtx.createGain();
-    wavGain0.gain.value = 0;
-
-    wavProcessor.onaudioprocess = (e) => {
-      if (wavPaused) return;
-      try {
-        const input = e.inputBuffer.getChannelData(0);
-        const down = downsampleBuffer(input, wavInputRate, WAV_TARGET_RATE);
-        const pcm16 = floatTo16BitPCM(down);
-        wavBuffers.push(pcm16);
-      } catch(err) {}
-    };
-
-    wavSource.connect(wavProcessor);
-    wavProcessor.connect(wavGain0);
-    wavGain0.connect(wavCtx.destination);
-
-    recorderMode = "wav";
-    audioMimeType = "audio/wav";
-    isFullRecordingStarted = true;
-  }
-
-  function stopWavRecording(cb) {
-    try { wavPaused = true; } catch(e){}
-    try { if (wavProcessor) wavProcessor.disconnect(); } catch(e){}
-    try { if (wavSource) wavSource.disconnect(); } catch(e){}
-    try { if (wavGain0) wavGain0.disconnect(); } catch(e){}
-
-    const chunks = wavBuffers || [];
-    let totalLen = 0;
-    for (const a of chunks) totalLen += a.length;
-
-    const merged = new Int16Array(totalLen);
-    let off = 0;
-    for (const a of chunks) { merged.set(a, off); off += a.length; }
-
-    const blob = encodeWav(merged, WAV_TARGET_RATE);
-
-    const ctxToClose = wavCtx;
-    wavCtx = null; wavSource = null; wavProcessor = null; wavGain0 = null;
-    wavBuffers = [];
-    if (ctxToClose) { try { ctxToClose.close(); } catch(e) {} }
-
-    cb && cb(blob);
-  }
-
-  // =================== MediaRecorder path ===================
-  async function startMediaRecordingIfNeeded() {
-    if (isFullRecordingStarted && recorderMode === "media" && mediaRecorder) return;
-
-    if (!window.MediaRecorder) throw new Error("MediaRecorder not supported");
-    await ensureMicStream();
-
-    audioMimeType = pickSupportedMime() || "";
-    audioChunks = [];
-    fullAudioBlob = null;
-
-    mediaRecorder = new MediaRecorder(
-      micStream,
-      audioMimeType ? { mimeType: audioMimeType } : undefined
-    );
-
-    mediaRecorder.ondataavailable = (e) => {
-      if (e.data && e.data.size > 0) audioChunks.push(e.data);
-    };
-
-    mediaRecorder.onstop = () => {
-      try { fullAudioBlob = new Blob(audioChunks, { type: audioMimeType || "audio/webm" }); } catch (e) {}
-    };
-
-    try { mediaRecorder.start(1000); } catch(e) { mediaRecorder.start(); }
-
-    recorderMode = "media";
-    isFullRecordingStarted = true;
-  }
-
-  async function startFullRecordingIfNeeded() {
-    try { await startMediaRecordingIfNeeded(); }
-    catch(e) { await startWavRecordingIfNeeded(); }
-  }
-
-  function pauseFullRecording() {
-    if (!isFullRecordingStarted) return;
-    if (recorderMode === "media" && mediaRecorder) {
-      if (mediaRecorder.state === "recording") { try { mediaRecorder.pause(); } catch(e){} }
-    } else if (recorderMode === "wav") {
-      wavPaused = true;
-    }
-  }
-
-  function resumeFullRecording() {
-    if (!isFullRecordingStarted) return;
-    if (recorderMode === "media" && mediaRecorder) {
-      if (mediaRecorder.state === "paused") { try { mediaRecorder.resume(); } catch(e){} }
-    } else if (recorderMode === "wav") {
-      wavPaused = false;
-    }
-  }
-
-  function stopFullRecording(cb) {
-    if (!isFullRecordingStarted) { cb && cb(null); return; }
-
-    if (recorderMode === "media" && mediaRecorder) {
-      try { mediaRecorder.requestData(); } catch(e){}
-      const prevOnStop = mediaRecorder.onstop;
-      mediaRecorder.onstop = () => {
-        try { fullAudioBlob = new Blob(audioChunks, { type: audioMimeType || "audio/webm" }); } catch (e) {}
-        mediaRecorder.onstop = prevOnStop;
-        cb && cb(fullAudioBlob);
-      };
-      try { mediaRecorder.stop(); } catch(e){ cb && cb(null); }
-      return;
-    }
-
-    if (recorderMode === "wav") return stopWavRecording(cb);
-
-    cb && cb(null);
-  }
-
-  function resetRecorderStateDiscard() {
-    try { pauseFullRecording(); } catch(e){}
-    isFullRecordingStarted = false;
-    recorderMode = "";
-    audioMimeType = "";
-    mediaRecorder = null;
-    audioChunks = [];
-    fullAudioBlob = null;
-  }
-
-  // ===================== API CALL (no-cors) =====================
-  async function callScriptApiNoCors(action, payload) {
-    const body = JSON.stringify({ action, ...payload });
-    await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      redirect: "follow",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body
-    });
-    return { ok: true, message: "Đã gửi yêu cầu. Vui lòng kiểm tra email GV để xác nhận." };
-  }
-
-  async function submitWithRetry(payload) {
-    let lastErr = null;
-    for (let i = 0; i < 2; i++) {
-      try {
-        const r = await callScriptApiNoCors("submitAll", payload);
-        if (r && r.ok) return { ok: true, r };
-        lastErr = new Error((r && r.message) ? r.message : "Request failed");
-      } catch (e) {
-        lastErr = e;
-      }
-      await sleep(600 * (i + 1));
-    }
-    return { ok: false, error: lastErr };
-  }
-
-  // ======= pending =======
-  function savePending(payload) {
-    try {
-      const obj = { payload, savedAt: new Date().toISOString() };
-      localStorage.setItem(PENDING_KEY, JSON.stringify(obj));
-      showPendingBox();
-    } catch(e) {}
-  }
-
-  function clearPending() {
-    try { localStorage.removeItem(PENDING_KEY); } catch(e) {}
-    pendingBox.style.display = "none";
-  }
-
-  function getPending() {
-    try {
-      const s = localStorage.getItem(PENDING_KEY);
-      if (!s) return null;
-      return JSON.parse(s);
-    } catch(e) { return null; }
-  }
-
-  function showPendingBox() {
-    const p = getPending();
-    if (!p) { pendingBox.style.display = "none"; return; }
-    pendingBox.style.display = "block";
-    const dt = p.savedAt ? new Date(p.savedAt) : null;
-    const when = dt ? dt.toLocaleString("vi-VN") : "(unknown time)";
-    const name = p.payload && p.payload.studentName ? p.payload.studentName : "";
-    const cls = p.payload && p.payload.studentClass ? p.payload.studentClass : "";
-    pendingInfo.textContent = `Họ tên: ${name} | Lớp: ${cls} | Lưu lúc: ${when}`;
-  }
-
-  resendPendingBtn.onclick = async () => {
-    const p = getPending();
-    if (!p || !p.payload) return;
-    resultArea.textContent = "Đang gửi lại bài đã lưu...";
-    resendPendingBtn.disabled = true;
-    clearPendingBtn.disabled = true;
-
-    const out = await submitWithRetry(p.payload);
-
-    resendPendingBtn.disabled = false;
-    clearPendingBtn.disabled = false;
-
-    if (out.ok) {
-      clearPending();
-      resultArea.innerHTML = '<span class="status-ok">Đã gửi lại thành công!</span>';
-      canViewSuggestion = true;
-      suggestBtn.disabled = false;
-    } else {
-      resultArea.innerHTML = '<span class="status-error">Gửi lại thất bại. Vui lòng thử lại khi mạng ổn định.</span>';
-    }
-  };
-
-  clearPendingBtn.onclick = () => {
-    if (!confirm("Xóa bài lưu chưa gửi?")) return;
-    clearPending();
-  };
-
-  // ===================== iOS/Safari TTS English voice fix =====================
-  let englishVoice = null;
-  let pendingSpeakText = null;
-
-  function selectEnglishVoice() {
-    if (!("speechSynthesis" in window)) return null;
-    const voices = window.speechSynthesis.getVoices();
-    if (!voices || !voices.length) return null;
-
-    const preferredNames = ["Samantha", "Karen", "Daniel", "Moira", "Serena", "Martha"];
-
-    let v =
-      voices.find(v => preferredNames.includes(v.name)) ||
-      voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en-us")) ||
-      voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en-gb")) ||
-      voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en"));
-
-    englishVoice = v || null;
-    return englishVoice;
-  }
-
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = function () {
-      const hadPending = !!pendingSpeakText;
-      selectEnglishVoice();
-      if (englishVoice && hadPending) {
-        const text = pendingSpeakText;
-        pendingSpeakText = null;
-        speakText(text);
-      }
-    };
-    window.speechSynthesis.getVoices();
-  }
-
-  function speakText(text) {
-    if (!("speechSynthesis" in window)) return;
-
-    pauseFullRecording();
-    window.speechSynthesis.cancel();
-
-    if (!englishVoice) {
-      const v = selectEnglishVoice();
-      if (!v) {
-        pendingSpeakText = text;
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.onvoiceschanged = function () {
+          const hadPending = !!pendingSpeakText;
+          selectEnglishVoice();
+          if (englishVoice && hadPending) {
+            const text = pendingSpeakText;
+            pendingSpeakText = null;
+            speakText(text);
+          }
+        };
         window.speechSynthesis.getVoices();
-        return;
       }
-    }
 
-    const numberWords = {
-      "0":"zero","1":"one","2":"two","3":"three","4":"four",
-      "5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten"
-    };
-    const processedText = String(text || "").replace(/Question\s+(\d+)/gi, (m, num) => {
-      const w = numberWords[num];
-      return w ? ("Question " + w) : m;
-    });
+      function speakText(text) {
+        if (!("speechSynthesis" in window)) return;
 
-    setTimeout(() => {
-      const langCode = englishVoice && englishVoice.lang ? englishVoice.lang : "en-US";
-      const intro = new SpeechSynthesisUtterance("Listen and answer.");
-      intro.lang = langCode;
-      intro.rate = 0.9;
-      if (englishVoice) intro.voice = englishVoice;
+        pauseFullRecording();
+        window.speechSynthesis.cancel();
 
-      const main = new SpeechSynthesisUtterance(processedText);
-      main.lang = langCode;
-      main.rate = 0.9;
-      if (englishVoice) main.voice = englishVoice;
-
-      intro.onend = () => setTimeout(() => window.speechSynthesis.speak(main), 600);
-      window.speechSynthesis.speak(intro);
-
-      setTimeout(() => { resumeFullRecording(); }, 120);
-    }, 50);
-  }
-
-  // ===================== In-app block =====================
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  const isInApp = ua.indexOf("FBAN") > -1 || ua.indexOf("FBAV") > -1 || ua.indexOf("Zalo") > -1;
-  if (isInApp) getEl("inapp-overlay").style.display = "flex";
-
-  // ===================== Data (Grade 9) =====================
-  const GRADES = [
-    {
-      id: "9",
-      name: "Grade 9",
-      topics: [
-        { id: "g9_u1_1", name: "Unit 1 - Local Community (Topic 1: Activity)", vn: "Hoạt động cộng đồng" },
-        { id: "g9_u1_2", name: "Unit 1 - Local Community (Topic 2: Helper)", vn: "Người giúp đỡ" },
-        { id: "g9_u2_1", name: "Unit 2 - City Life (Topic 1: Liked Feature)", vn: "Điểm thích ở TP" },
-        { id: "g9_u2_2", name: "Unit 2 - City Life (Topic 2: Advantages)", vn: "Lợi ích sống ở TP" },
-        { id: "g9_u2_3", name: "Unit 2 - City Life (Topic 3: Drawbacks)", vn: "Hạn chế sống ở TP" },
-        { id: "g9_u3_1", name: "Unit 3 - Healthy Living (Topic 1: Habit)", vn: "Thói quen lành mạnh" },
-        { id: "g9_u3_2", name: "Unit 3 - Healthy Living (Topic 2: Time Mgmt)", vn: "Quản lý thời gian" },
-        { id: "g9_u3_3", name: "Unit 3 - Healthy Living (Topic 3: Stress)", vn: "Giảm căng thẳng" },
-        { id: "g9_u4_1", name: "Unit 4 - Remembering The Past", vn: "Kỷ niệm quá khứ" },
-        { id: "g9_u5_1", name: "Unit 5 - Our Experiences", vn: "Trải nghiệm mới" },
-        { id: "g9_u6_1", name: "Unit 6 - VN Lifestyles: Then & Now", vn: "Thay đổi lối sống" },
-        { id: "g9_u7_1", name: "Unit 7 - Natural Wonders", vn: "Kỳ quan thiên nhiên" },
-        { id: "g9_u8_1", name: "Unit 8 - Tourism", vn: "Du lịch" },
-        { id: "g9_u9_1", name: "Unit 9 - World Englishes", vn: "Các loại tiếng Anh" },
-        { id: "g9_u10_1", name: "Unit 10 - Planet Earth", vn: "Vấn đề môi trường" },
-        { id: "g9_u11_1", name: "Unit 11 - Electronic Devices", vn: "Thiết bị điện tử" },
-        { id: "g9_u12_1", name: "Unit 12 - Career Choices", vn: "Lựa chọn nghề nghiệp" }
-      ]
-    }
-  ];
-
-  const GRADE_9_QUESTIONS = {
-    "g9_u1_1": "Describe a community activity or event in your local area. You should say:\n• what the activity/event is\n• who usually takes part in it\n• what people do during the activity\nAnd explain how this activity benefits your local community.",
-    "g9_u1_2": "Describe your favourite community helper. You should say:\n• who he/she is\n• what he/she usually does\n• how long he/she has been doing this work\nAnd explain why he/she is your favourite community helper.",
-    "g9_u2_1": "Describe a feature of city life that you really like. You should say:\n• what the feature is\n• how it affects your daily life\n• why it is important in big cities\nAnd explain why you enjoy this feature of city life.",
-    "g9_u2_2": "Talk about the advantages of living in a city. You should say:\n• what convenient services or facilities cities offer\n• what opportunities people have in cities\n• how city life supports education, transport, or entertainment\nAnd explain why many people prefer living in cities.",
-    "g9_u2_3": "Talk about the drawbacks of living in a city. You should say:\n• what problems people may face (noise, traffic, pollution…)\n• how these problems affect residents\n• who suffers the most from these issues\nAnd explain which drawback you think is the most serious and why.",
-    "g9_u3_1": "Talk about a healthy habit that teenagers should develop. You should say:\n• what the habit is\n• how to practise it\n• what benefits it brings\nAnd explain why this habit is especially important for teenagers.",
-    "g9_u3_2": "Talk about the ways teenagers should manage their time effectively. You should say:\n• why time management is important for teens\n• what strategies they can use (planning, prioritising tasks, reducing screen time…)\n• how these strategies help with schoolwork and daily life\nAnd explain how good time management can improve teenagers’ lifestyle.",
-    "g9_u3_3": "Talk about the ways teenagers can reduce stress. You should say:\n• what causes stress for teenagers nowadays\n• what activities or habits can help them relax\n• who can support them when they feel stressed\nAnd explain why managing stress is essential for teenagers’ mental health.",
-    "g9_u4_1": "Describe a memorable event from your childhood. You should say:\n• when it happened\n• who was involved\n• what you remember most about it\nAnd explain why this memory is still important to you.",
-    "g9_u5_1": "Describe a new experience you have tried for the first time. You should say:\n• what the experience was\n• where and when you tried it\n• how you felt during the experience\nAnd explain what you learned from this experience.",
-    "g9_u6_1": "Describe a lifestyle change in Viet Nam over the years. You should say:\n• what life was like in the past\n• what life is like now\n• what has changed the most\nAnd explain how these changes have affected people’s lives.",
-    "g9_u7_1": "Describe a natural wonder you would like to visit. You should say:\n• what it is\n• where it is located\n• what it is famous for\nAnd explain why you want to visit this natural wonder.",
-    "g9_u8_1": "Describe a place you have visited as a tourist. You should say:\n• where it is\n• what you did there\n• what you enjoyed most\nAnd explain why you would recommend this place to other tourists.",
-    "g9_u9_1": "Describe a variety of English you find interesting. You should say:\n• what the variety is (British, American, Australian, Singaporean…)\n• how it sounds or how it is used\n• where you learned about it\nAnd explain why this variety of English interests you.",
-    "g9_u10_1": "Describe an environmental problem that worries you. You should say:\n• what the problem is\n• what causes it\n• how it affects people and the Earth\nAnd explain what we should do to reduce this problem.",
-    "g9_u11_1": "Describe an electronic device you use every day. You should say:\n• what the device is\n• what you use it for\n• how it helps you in daily life\nAnd explain why this device is important to you.",
-    "g9_u12_1": "Describe a job you would like to do in the future. You should say:\n• what the job is\n• why you are interested in it\n• what skills or qualifications it requires\nAnd explain why this job suits your personality or abilities."
-  };
-
-  // ===================== FULL SUGGESTED ANSWERS (đã dán đầy đủ) =====================
-  const SUGGESTED_ANSWERS = {
-    "g9_u1_1": `In my local area, one meaningful community activity that takes place regularly is the Sunday morning neighborhood clean-up event. This activity happens almost every week, especially in rural areas where people care strongly about keeping the environment clean and peaceful. Many villagers take part in the event, including students, parents, farmers, and local volunteers. Everyone gathers in front of the communal house at around seven in the morning before dividing into small groups.
-
-During the event, we do many activities such as sweeping village roads, collecting trash along the canals, cutting bushes, and removing weeds. Some adults clean the market area while students often help around the school yard. We also plant small trees on both sides of the road to make the village look greener. Even though the work can be tiring, people chat happily and cooperate with one another, which makes the atmosphere lively.
-
-This community clean-up is very meaningful for several reasons. First, it teaches young people to care for the environment and take responsibility for public spaces. Second, it helps build stronger relationships among villagers because everyone works toward the same goal. Finally, the activity makes our village cleaner, more beautiful, and healthier to live in.
-
-That is why I believe this simple activity has a big positive impact on our local community.`,
-    "g9_u1_2": `My favourite community helper in my village is the garbage collector, a man named Mr. Nam, who has been doing this job for more than ten years. Although his work is simple and often seen as dirty, it is extremely important for keeping our rural community clean and healthy. Every day, he wakes up very early, usually before sunrise, and starts working while most people are still sleeping.
-
-In our small village, he rides an old motorbike with a large metal cart attached to the back. He goes slowly along each road, stopping in front of every house to collect trash bags. Even on hot summer days, heavy rainy days, or cold winter mornings, he never skips his route. In the afternoon, he often helps clean the areas around the market, the commune hall, and the school gate, where rubbish gathers quickly. Sometimes, he even reminds children not to throw litter on the road and teaches them simple ways to protect the environment.
-
-I admire him because he does his job with dedication even though it is not well-paid or respected by many people. Thanks to his hard work, our village roads look cleaner, the air smells fresher, and people become more aware of keeping the environment tidy. Without him, our community would face unpleasant smells, pollution, and health problems.
-
-What I like most about him is his positive attitude. He always smiles and greets everyone politely. He rarely complains, even when the work is difficult. To me, he is a silent hero who contributes to the well-being of our village every single day.
-
-That is why he is my favourite community helper.`,
-    "g9_u2_1": `One feature of city life that I really like is the public transportation system, especially the bus network. In big cities like Hanoi and Ho Chi Minh City, buses are available almost everywhere. The routes are clearly numbered, the schedules are posted at bus stops, and buses come frequently throughout the day. This makes it very convenient for students like me who do not have their own vehicles.
-
-I often use the bus to go to school, visit my relatives, or go to the city center. The bus is cheap, safe, and environmentally friendly because it can carry many passengers at the same time. While sitting on the bus, I enjoy looking out the window and observing the busy streets, tall buildings, and daily activities of city life. Sometimes, I even study vocabulary or listen to English audio during the ride.
-
-This feature is important because it helps reduce traffic jams and air pollution. If more people use buses instead of motorbikes, the roads would be less crowded and the air would be cleaner. The bus system also makes it possible for students, elderly people, and low-income families to travel easily without spending too much money.
-
-I enjoy using public transportation because it gives me independence, saves time, and helps me understand city life better. For me, the bus system is one of the best things about living in a city.`,
-    "g9_u2_2": `Living in a city has many advantages, which is why more and more people choose to move from rural areas to urban centers. One major advantage is access to modern services and facilities. Cities have well-equipped hospitals, high-quality schools, supermarkets, shopping centers, and entertainment areas. Whenever people need something, they can easily find it within a short distance.
-
-Another important advantage is the wide range of education and job opportunities. Students can attend good schools, join clubs, take extra classes, and use modern libraries. Adults can choose from many kinds of jobs in different fields such as business, technology, education, and tourism. This helps them improve their skills and build better careers.
-
-Cities also offer convenient transportation systems, including buses, taxis, and sometimes metros. These make it easy for people to move around without using private vehicles. In addition, cities provide many cultural experiences—museums, theatres, concerts, parks, and festivals.
-
-For these reasons, living in a city is very attractive. Although it can be crowded, the convenience and opportunities it offers make city life appealing to many people.`,
-    "g9_u2_3": `Although city life has many advantages, it also has several drawbacks. One of the biggest problems is traffic congestion. During rush hours, thousands of vehicles fill the streets. People often become stressed as they wait in long lines of traffic.
-
-Another serious drawback is air and noise pollution. With so many motorbikes, cars, factories, and construction sites, the air quality in cities is often poor. Many people, especially children and the elderly, suffer from respiratory problems. Noise from vehicles and crowded places can also make it difficult to concentrate or relax.
-
-Cities are also overcrowded. Streets, schools, and apartment buildings are full of people. Some families live in very small spaces with little privacy. In addition, living costs in cities are high—food, rent, and transportation all cost more than in rural areas.
-
-Among all the drawbacks, I think air pollution is the most serious because it affects people’s long-term health. Although cities offer opportunities, these problems make city life challenging for many residents.`,
-    "g9_u3_1": `One healthy habit that teenagers should develop is doing regular exercise. Today, many students spend too much time sitting in class, using smartphones, or playing games. As a result, they may become tired, stressed, or unhealthy. Regular exercise can help prevent these problems.
-
-There are many forms of exercise that are suitable for teenagers, such as jogging, swimming, cycling, playing badminton, or simply walking for 30 minutes a day. To practise this habit, students can make a weekly plan, choose a sport they enjoy, and exercise with a friend to stay motivated.
-
-Regular physical activity brings many benefits. It strengthens the body, improves blood circulation, and keeps the heart healthy. It also helps reduce stress and makes the mind clearer, which is very useful when studying. Students who exercise frequently often sleep better and feel more energetic in class.
-
-This habit is especially important today because teenagers face a lot of pressure from schoolwork. Doing exercise helps them balance their physical and mental health and develop a positive lifestyle. Therefore, I think every teenager should make exercise a part of their daily routine.`,
-    "g9_u3_2": `Time management is very important for teenagers because they have many tasks to complete each day, such as homework, revision, housework, and personal activities. One effective way to manage time is by making a daily or weekly schedule. Students can write down the tasks they need to finish and arrange them in order of priority.
-
-Another helpful method is to reduce distractions. Spending too much time on social media or video games can waste valuable hours. Teenagers should set a limit for screen time and avoid using phones while studying.
-
-Preparing school materials in advance, especially the night before, is another good habit. It prevents students from rushing in the morning and helps them start the day calmly. Breaking big assignments into smaller parts also makes the work easier and less stressful.
-
-Good time management helps teenagers finish homework on time, improve their grades, and still have free time to relax or enjoy hobbies. It teaches them responsibility and makes their daily life more organized.`,
-    "g9_u3_3": `Teenagers today often face stress from school, exams, relationships, and personal expectations. One effective way to reduce stress is by doing physical exercise, such as playing sports, walking, or practising simple stretches. Exercise releases energy and helps the mind relax.
-
-Another helpful strategy is talking to someone they trust—a parent, teacher, or close friend. Sharing feelings can make problems feel lighter and help teenagers receive advice. Listening to music, reading books, or spending time in nature are also good ways to calm the mind.
-
-Teenagers should also learn to take short breaks between study sessions and avoid studying for too many hours without resting. Getting enough sleep is important because a tired brain becomes more stressed.
-
-Managing stress helps teenagers stay healthy and enjoy school life more. With the right habits, they can handle challenges more confidently.`,
-    "g9_u4_1": `One memorable event from my childhood was my first day of primary school, an experience that I will never forget. I was six years old at the time, and everything around me felt new, colorful, and a little scary. Early in the morning, my mother helped me dress in my clean uniform and prepared my school bag with books, notebooks, and a pencil case. I remember feeling both excited and nervous as we walked toward the school gate.
-
-When we arrived, the schoolyard was full of students wearing the same uniform. Some were crying, while others were laughing and running around. I held my mother’s hand tightly because I was afraid of getting lost. My classroom was bright, with many pictures on the walls and small wooden desks arranged neatly. My first teacher, Ms. Hoa, greeted us with a warm smile. Her gentle voice made me feel calmer.
-
-During the break, I made my very first school friend. We shared snacks and talked about our favorite cartoons. That simple moment made me feel less lonely.
-
-This memory is important to me because it marked the beginning of my learning journey. It taught me to be brave, make new friends, and enjoy school life. Even now, whenever I think about that day, I feel warm and happy.`,
-    "g9_u5_1": `A new experience I tried for the first time was learning to ride a bicycle when I was around ten years old. Many of my friends already knew how to ride, so I felt excited but also a bit nervous. My father decided to teach me on a quiet afternoon in front of our house.
-
-At first, I had trouble keeping my balance. My legs were shaking, and I was afraid of falling. My father held the back of the bike and encouraged me to pedal slowly. Even though I fell several times, he told me not to give up. After practising for several days, something amazing happened—I suddenly found my balance and rode a short distance by myself. I still remember the feeling of the wind on my face at that moment.
-
-Once I learned how to ride confidently, I began exploring my village roads with friends. We rode to the rice fields, to the small market, and to the riverbank. Those rides became a big part of my childhood.
-
-This experience taught me an important lesson: new things may be difficult at first, but with patience and practice, I can overcome challenges. Learning to ride a bicycle helped me become more confident and independent.`,
-    "g9_u6_1": `One major lifestyle change in Vietnam over the years is the way people travel. In the past, especially in rural areas, most people used bicycles or simply walked to school, the market, or the rice fields. Motorbikes were rare, and only better-off families could afford one. Roads were narrow and sometimes unpaved, so traveling could be slow and difficult.
-
-Today, things have changed dramatically. Almost every household owns at least one motorbike, and many families even have cars. Roads are wider, smoother, and better maintained. There are also more public transportation options in big cities, such as buses and metro lines. These improvements make traveling faster, easier, and more comfortable.
-
-However, this lifestyle change also brings challenges. With more vehicles on the road, traffic jams and air pollution have become serious problems, especially in large cities. People must also be more careful because traffic accidents are common.
-
-Despite the drawbacks, this change has greatly improved people’s lives. It saves time, allows people to travel long distances easily, and creates more job and education opportunities. Overall, transportation in Vietnam shows how quickly our country has developed.`,
-    "g9_u7_1": `A natural wonder I would like to visit is Ha Long Bay, one of the most famous UNESCO World Heritage Sites in Vietnam. Although I have seen many photos and videos of it, I have never had the chance to explore it in person.
-
-Ha Long Bay is known for its thousands of limestone islands rising from emerald green water. Some islands have strange shapes, such as a chicken, a dog, or a pair of kissing rocks. Many islands also contain beautiful caves with stalactites and stalagmites formed over millions of years.
-
-If I have the opportunity to visit Ha Long Bay, I would love to take a boat cruise, enjoy the fresh air, and watch the sunset over the water. I also want to explore the caves and learn about the legends related to the bay, such as the story of the dragons sent to protect Vietnam.
-
-Ha Long Bay attracts millions of tourists every year, not only because of its beauty but also because it represents the rich natural heritage of Vietnam. Visiting this place would be an unforgettable experience for me as someone who loves nature and photography.`,
-    "g9_u8_1": `Last year, I visited Hoi An Ancient Town with my family, and it was one of the most memorable trips I have ever had. Hoi An is well known for its old houses, colourful lanterns, and peaceful atmosphere.
-
-When we arrived, I was immediately impressed by the yellow ancient houses with wooden doors and tiled roofs. We walked along narrow streets decorated with hanging lanterns. Everything looked beautiful and full of history. We visited old temples, ancient houses, and traditional handicraft shops. The local people were friendly and always ready to share interesting stories about their culture.
-
-One of the best moments was walking along the Thu Bon River in the evening. The lanterns were lit up, creating a magical view. We even released small paper lanterns on the water and made wishes.
-
-I would recommend Hoi An to any tourist because it is peaceful, charming, and rich in culture. The food is delicious, the streets are clean, and the atmosphere is perfect for relaxing.`,
-    "g9_u9_1": `One variety of English that I find very interesting is British English. I first learned about it through my English textbooks and from watching BBC programs. Compared to American English, British English has a different accent, vocabulary, and sometimes even grammar.
-
-The pronunciation of British English sounds elegant, soft, and pleasant to listen to. For example, British speakers often pronounce the “t” clearly in words like “water,” while Americans say it more like a “d.” British English also uses some unique vocabulary such as “flat” for apartment, “holiday” for vacation, and “timetable” for schedule.
-
-I find British English interesting because it reminds me of the long history and culture of the United Kingdom. Many famous authors, such as Shakespeare and Charles Dickens, wrote in British English. Learning this variety helps me understand English literature better.
-
-Studying different varieties of English makes the language more fun and helps me communicate with people from different countries. British English is my favourite because of its beautiful pronunciation and rich cultural background.`,
-    "g9_u10_1": `One environmental problem that worries me the most is plastic pollution. Every day, huge amounts of plastic waste are thrown away, including bags, bottles, straws, and packaging. Much of this waste ends up in rivers, lakes, and the ocean.
-
-Plastic pollution is dangerous because it takes hundreds of years to decompose. Animals, especially sea creatures like turtles and fish, often mistake plastic for food and swallow it, which can kill them. Plastic also contaminates soil and water, affecting people’s health.
-
-There are many reasons for plastic pollution. People use disposable plastic items because they are cheap and convenient. Many countries also lack proper recycling systems.
-
-To reduce plastic pollution, we should start with small actions. For example, we can bring reusable bags when shopping, use refillable water bottles, and reduce the use of plastic straws. Schools and supermarkets should also encourage environmentally friendly products.
-
-Protecting the Earth is everyone’s responsibility. If we don’t take action now, the situation will become much worse in the future.`,
-    "g9_u11_1": `The electronic device I use every day is my smartphone, and it has become an important part of my daily life. I use it for studying, communication, entertainment, and organising my schedule.
-
-For studying, my smartphone helps me look up new vocabulary, watch English videos, and review lessons. I join group chats on Zalo where my classmates and I discuss homework or share study materials. I also use apps like Google Classroom or YouTube to learn new things.
-
-My smartphone is useful for communication as well. I can call my parents, send messages to friends, or take photos of important information. When I travel, the map application helps me find directions easily.
-
-Besides studying and communication, I use my smartphone to relax. I listen to music, watch short videos, and read news online. However, I try to control my screen time so that it does not affect my eyes or my sleep.
-
-Overall, my smartphone is important because it helps me stay connected, learn new things, and manage my daily life efficiently.`,
-    "g9_u12_1": `A job I would like to do in the future is becoming an English teacher. I have always enjoyed learning English, and I feel happy when I can help others understand something new. Many of my teachers have inspired me with their kindness and passion for teaching.
-
-To become a good English teacher, I will need strong communication skills, good pronunciation, and a wide vocabulary. Teachers must also be patient, responsible, and creative because they work with students of different levels and personalities. I think this job suits my character because I am calm, friendly, and willing to help others.
-
-Being a teacher is meaningful because teachers shape students’ futures. They don’t just teach knowledge; they also teach life skills, confidence, and good values. I hope one day I can stand in front of a classroom, explain lessons clearly, and see my students make progress.
-
-For me, being an English teacher is not only a job but also a dream that I want to achieve.`
-  };
-
-  // ===================== Init selects =====================
-  GRADES.forEach((g) => {
-    const opt = document.createElement("option");
-    opt.value = g.id;
-    opt.textContent = g.name;
-    gradeSelect.appendChild(opt);
-  });
-
-  function updateTopics() {
-    const g = GRADES.find((x) => x.id === gradeSelect.value);
-    topicSelect.innerHTML = "";
-    if (g) {
-      g.topics.forEach((t) => {
-        const opt = document.createElement("option");
-        opt.value = t.id;
-        opt.textContent = t.name + (t.vn ? " - " + t.vn : "");
-        topicSelect.appendChild(opt);
-      });
-    }
-    renderQuestion();
-  }
-
-  gradeSelect.onchange = updateTopics;
-  topicSelect.onchange = renderQuestion;
-  updateTopics();
-
-  // ===================== Step 2 buttons =====================
-  getEl("showTextBtn").onclick = () => { questionTextContainer.style.display = "block"; };
-  getEl("speakQuestionBtn").onclick = () => { speakText(questionTextarea.value); };
-
-  // ===================== Timer =====================
-  function updateTimerUI() {
-    const m = Math.floor(remainingSec / 60);
-    const s = remainingSec % 60;
-    getEl("timerDisplay").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-  }
-
-  function startTimer() {
-    clearInterval(timerInterval);
-    remainingSec = 180;
-    updateTimerUI();
-    timerInterval = setInterval(() => {
-      remainingSec--;
-      if (remainingSec <= 0) {
-        remainingSec = 0;
-        updateTimerUI();
-        clearInterval(timerInterval);
-        if (!stopBtn.disabled) stopBtn.click();
-        return;
-      }
-      updateTimerUI();
-    }, 1000);
-  }
-
-  function stopTimer() {
-    clearInterval(timerInterval);
-    remainingSec = 180;
-    updateTimerUI();
-  }
-
-  // ===================== Topic render/reset =====================
-  function renderQuestion() {
-    const tId = topicSelect.value;
-    const content = GRADE_9_QUESTIONS[tId] || "Content not found.";
-    questionTextarea.value = content;
-    questionTextContainer.style.display = "none";
-    window.speechSynthesis && window.speechSynthesis.cancel();
-
-    stopTimer();
-    resetRecorderStateDiscard();
-    sendBtn.disabled = true;
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    statusEl.textContent = 'Nhấn "Bắt đầu ghi âm" để trả lời.';
-    canViewSuggestion = false;
-    suggestBtn.disabled = true;
-    suggestionsArea.textContent = "(Bạn sẽ xem được gợi ý sau khi gửi bài cho giáo viên.)";
-    resultArea.textContent = "Chưa gửi.";
-  }
-
-  // ===================== Start/Stop recording =====================
-  startBtn.onclick = async () => {
-    try {
-      await startFullRecordingIfNeeded();
-      resumeFullRecording();
-      startTimer();
-
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
-      sendBtn.disabled = true;
-      statusEl.textContent = (recorderMode === "wav")
-        ? "Đang ghi âm (WAV fallback – iPhone/iPad OK). Nói to và rõ."
-        : "Đang ghi âm... Nói to và rõ.";
-    } catch (err) {
-      console.log(err);
-      statusEl.textContent = "Không thể khởi tạo ghi âm. Vui lòng kiểm tra quyền Microphone.";
-    }
-  };
-
-  stopBtn.onclick = () => {
-    pauseFullRecording();
-    clearInterval(timerInterval);
-
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    sendBtn.disabled = !isFullRecordingStarted;
-    statusEl.textContent = "Đã dừng ghi âm. Bạn có thể nộp bài cho giáo viên.";
-  };
-
-  // ===================== SEND (audio-only like Grade 6) =====================
-  sendBtn.onclick = () => {
-    const n = getEl("studentName").value.trim();
-    const c = getEl("studentClass").value.trim();
-    const tOpt = document.querySelector("#topicSelect option:checked");
-    const topicLabel = tOpt ? tOpt.text : "Topic";
-    const questionText = questionTextarea.value || "";
-
-    if (!n || !c) { alert("Thiếu Họ tên hoặc Lớp."); return; }
-    if (!isFullRecordingStarted) { alert("Bạn cần ghi âm trước khi nộp."); return; }
-
-    sendBtn.disabled = true;
-    resultArea.textContent = "Đang xử lý audio...";
-    pauseFullRecording();
-
-    stopFullRecording((blob) => {
-      (async () => {
-        try {
-          if (!blob || !blob.size) {
-            sendBtn.disabled = false;
-            resultArea.innerHTML = '<span class="status-error">Không tạo được file ghi âm. Vui lòng thử lại.</span>';
+        if (!englishVoice) {
+          const v = selectEnglishVoice();
+          if (!v) {
+            pendingSpeakText = text;
+            window.speechSynthesis.getVoices();
             return;
           }
-
-          const mime = blob.type || audioMimeType || "audio/webm";
-          const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
-
-          if (blob.size <= SMALL_BLOB_MAX) {
-            resultArea.textContent = `Audio ${sizeMB}MB: đang chuyển đổi...`;
-            const dataUrl = await new Promise((resolve) => blobToDataUrl(blob, resolve));
-            if (!dataUrl) {
-              sendBtn.disabled = false;
-              resultArea.innerHTML = '<span class="status-error">Lỗi chuyển đổi audio. Vui lòng thử lại.</span>';
-              return;
-            }
-
-            let finalDataUrl = dataUrl;
-            let finalMime = mime;
-
-            if (finalDataUrl.length > MAX_DATAURL_CHARS) {
-              finalDataUrl = "";
-              finalMime = "";
-            }
-
-            const payload = {
-              studentName: n,
-              studentClass: c,
-              topicLabel,
-              questionText,
-              mimeType: finalMime,
-              dataUrl: finalDataUrl
-            };
-
-            resultArea.textContent = finalDataUrl
-              ? "Đang nộp bài (audio)..."
-              : "Audio quá lớn (base64). Đang chuyển sang chế độ upload chia nhỏ...";
-
-            if (finalDataUrl) {
-              const out = await submitWithRetry(payload);
-              sendBtn.disabled = false;
-
-              if (out.ok) {
-                resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công (kèm audio)!</span>';
-                canViewSuggestion = true;
-                suggestBtn.disabled = false;
-              } else {
-                savePending(payload);
-                resultArea.innerHTML = '<span class="status-error">Nộp bài thất bại do lỗi mạng. Bài đã được lưu. Hãy bấm "Gửi lại bài vừa lưu".</span>';
-              }
-              return;
-            }
-          }
-
-          resultArea.textContent = `Audio ${sizeMB}MB: đang chia nhỏ & upload... (vui lòng không thoát trang)`;
-
-          try {
-            await uploadAudioInChunksNoCors(blob, mime, {
-              studentName: n,
-              studentClass: c,
-              topicLabel,
-              questionText
-            });
-
-            sendBtn.disabled = false;
-            resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công! Vui lòng kiểm tra email GV (sẽ có link audio).</span>';
-            canViewSuggestion = true;
-            suggestBtn.disabled = false;
-          } catch (e) {
-            console.log(e);
-            sendBtn.disabled = false;
-            resultArea.innerHTML = '<span class="status-error">Upload audio bị lỗi (mạng yếu/đứt). Hãy bấm Nộp bài lại khi mạng ổn định và giữ trang mở trong lúc gửi.</span>';
-          }
-        } catch (e) {
-          console.log(e);
-          sendBtn.disabled = false;
-          resultArea.innerHTML = '<span class="status-error">Có lỗi xảy ra. Vui lòng thử lại.</span>';
         }
-      })();
-    });
-  };
 
-  suggestBtn.onclick = () => {
-    if (!canViewSuggestion) {
-      alert("Bạn chỉ được xem gợi ý sau khi đã gửi bài cho giáo viên.");
-      return;
-    }
-    const tId = topicSelect.value;
-    const suggestion = SUGGESTED_ANSWERS[tId] || "Sorry, no suggestion available.";
-    suggestionsArea.textContent = suggestion;
-  };
+        const processedText = text; // grade 9 prompt không có "Question 1" dạng số nhiều như khối 6
 
-  showPendingBox();
-</script>
-</body>
+        setTimeout(() => {
+          const langCode = englishVoice && englishVoice.lang ? englishVoice.lang : "en-US";
+          const intro = new SpeechSynthesisUtterance("Listen and answer.");
+          intro.lang = langCode;
+          intro.rate = 0.9;
+          if (englishVoice) intro.voice = englishVoice;
+
+          const main = new SpeechSynthesisUtterance(processedText);
+          main.lang = langCode;
+          main.rate = 0.9;
+          if (englishVoice) main.voice = englishVoice;
+
+          intro.onend = () => setTimeout(() => window.speechSynthesis.speak(main), 700);
+          window.speechSynthesis.speak(intro);
+
+          setTimeout(() => resumeFullRecording(), 150);
+        }, 60);
+      }
+
+      // ===================== in-app block =====================
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const isInApp = ua.indexOf("FBAN") > -1 || ua.indexOf("FBAV") > -1 || ua.indexOf("Zalo") > -1;
+      if (isInApp) document.getElementById("inapp-overlay").style.display = "flex";
+
+      // ===================== DATA =====================
+      const GRADES = [
+        {
+          id: "9",
+          name: "Grade 9",
+          topics: [
+            { id: "g9_u1_1", name: "Unit 1 - Local Community (Topic 1: Activity)", vn: "Hoạt động cộng đồng" },
+            { id: "g9_u1_2", name: "Unit 1 - Local Community (Topic 2: Helper)", vn: "Người giúp đỡ" },
+            { id: "g9_u2_1", name: "Unit 2 - City Life (Topic 1: Liked Feature)", vn: "Điểm thích ở TP" },
+            { id: "g9_u2_2", name: "Unit 2 - City Life (Topic 2: Advantages)", vn: "Lợi ích sống ở TP" },
+            { id: "g9_u2_3", name: "Unit 2 - City Life (Topic 3: Drawbacks)", vn: "Hạn chế sống ở TP" },
+            { id: "g9_u3_1", name: "Unit 3 - Healthy Living (Topic 1: Habit)", vn: "Thói quen lành mạnh" },
+            { id: "g9_u3_2", name: "Unit 3 - Healthy Living (Topic 2: Time Mgmt)", vn: "Quản lý thời gian" },
+            { id: "g9_u3_3", name: "Unit 3 - Healthy Living (Topic 3: Stress)", vn: "Giảm căng thẳng" },
+            { id: "g9_u4_1", name: "Unit 4 - Remembering The Past", vn: "Kỷ niệm quá khứ" },
+            { id: "g9_u5_1", name: "Unit 5 - Our Experiences", vn: "Trải nghiệm mới" },
+            { id: "g9_u6_1", name: "Unit 6 - VN Lifestyles: Then & Now", vn: "Thay đổi lối sống" },
+            { id: "g9_u7_1", name: "Unit 7 - Natural Wonders", vn: "Kỳ quan thiên nhiên" },
+            { id: "g9_u8_1", name: "Unit 8 - Tourism", vn: "Du lịch" },
+            { id: "g9_u9_1", name: "Unit 9 - World Englishes", vn: "Các loại tiếng Anh" },
+            { id: "g9_u10_1", name: "Unit 10 - Planet Earth", vn: "Vấn đề môi trường" },
+            { id: "g9_u11_1", name: "Unit 11 - Electronic Devices", vn: "Thiết bị điện tử" },
+            { id: "g9_u12_1", name: "Unit 12 - Career Choices", vn: "Lựa chọn nghề nghiệp" }
+          ]
+        }
+      ];
+
+      const GRADE_9_QUESTIONS = {
+        "g9_u1_1": "Describe a community activity or event in your local area. You should say:\n• what the activity/event is\n• who usually takes part in it\n• what people do during the activity\nAnd explain how this activity benefits your local community.",
+        "g9_u1_2": "Describe your favourite community helper. You should say:\n• who he/she is\n• what he/she usually does\n• how long he/she has been doing this work\nAnd explain why he/she is your favourite community helper.",
+        "g9_u2_1": "Describe a feature of city life that you really like. You should say:\n• what the feature is\n• how it affects your daily life\n• why it is important in big cities\nAnd explain why you enjoy this feature of city life.",
+        "g9_u2_2": "Talk about the advantages of living in a city. You should say:\n• what convenient services or facilities cities offer\n• what opportunities people have in cities\n• how city life supports education, transport, or entertainment\nAnd explain why many people prefer living in cities.",
+        "g9_u2_3": "Talk about the drawbacks of living in a city. You should say:\n• what problems people may face (noise, traffic, pollution…)\n• how these problems affect residents\n• who suffers the most from these issues\nAnd explain which drawback you think is the most serious and why.",
+        "g9_u3_1": "Talk about a healthy habit that teenagers should develop. You should say:\n• what the habit is\n• how to practise it\n• what benefits it brings\nAnd explain why this habit is especially important for teenagers.",
+        "g9_u3_2": "Talk about the ways teenagers should manage their time effectively. You should say:\n• why time management is important for teens\n• what strategies they can use (planning, prioritising tasks, reducing screen time…)\n• how these strategies help with schoolwork and daily life\nAnd explain how good time management can improve teenagers’ lifestyle.",
+        "g9_u3_3": "Talk about the ways teenagers can reduce stress. You should say:\n• what causes stress for teenagers nowadays\n• what activities or habits can help them relax\n• who can support them when they feel stressed\nAnd explain why managing stress is essential for teenagers’ mental health.",
+        "g9_u4_1": "Describe a memorable event from your childhood. You should say:\n• when it happened\n• who was involved\n• what you remember most about it\nAnd explain why this memory is still important to you.",
+        "g9_u5_1": "Describe a new experience you have tried for the first time. You should say:\n• what the experience was\n• where and when you tried it\n• how you felt during the experience\nAnd explain what you learned from this experience.",
+        "g9_u6_1": "Describe a lifestyle change in Viet Nam over the years. You should say:\n• what life was like in the past\n• what life is like now\n• what has changed the most\nAnd explain how these changes have affected people’s lives.",
+        "g9_u7_1": "Describe a natural wonder you would like to visit. You should say:\n• what it is\n• where it is located\n• what it is famous for\nAnd explain why you want to visit this natural wonder.",
+        "g9_u8_1": "Describe a place you have visited as a tourist. You should say:\n• where it is\n• what you did there\n• what you enjoyed most\nAnd explain why you would recommend this place to other tourists.",
+        "g9_u9_1": "Describe a variety of English you find interesting. You should say:\n• what the variety is (British, American, Australian, Singaporean…)\n• how it sounds or how it is used\n• where you learned about it\nAnd explain why this variety of English interests you.",
+        "g9_u10_1": "Describe an environmental problem that worries you. You should say:\n• what the problem is\n• what causes it\n• how it affects people and the Earth\nAnd explain what we should do to reduce this problem.",
+        "g9_u11_1": "Describe an electronic device you use every day. You should say:\n• what the device is\n• what you use it for\n• how it helps you in daily life\nAnd explain why this device is important to you.",
+        "g9_u12_1": "Describe a job you would like to do in the future. You should say:\n• what the job is\n• why you are interested in it\n• what skills or qualifications it requires\nAnd explain why this job suits your personality or abilities."
+      };
+
+      // ===== FULL suggested answers (as provided) =====
+      const SUGGESTED_ANSWERS = /* pasted full */ {
+        "g9_u1_1": "In my local area, one meaningful community activity that takes place regularly is the Sunday morning neighborhood clean-up event. This activity happens almost every week, especially in rural areas where people care strongly about keeping the environment clean and peaceful. Many villagers take part in the event, including students, parents, farmers, and local volunteers. Everyone gathers in front of the communal house at around seven in the morning before dividing into small groups.\n\nDuring the event, we do many activities such as sweeping village roads, collecting trash along the canals, cutting bushes, and removing weeds. Some adults clean the market area while students often help around the school yard. We also plant small trees on both sides of the road to make the village look greener. Even though the work can be tiring, people chat happily and cooperate with one another, which makes the atmosphere lively.\n\nThis community clean-up is very meaningful for several reasons. First, it teaches young people to care for the environment and take responsibility for public spaces. Second, it helps build stronger relationships among villagers because everyone works toward the same goal. Finally, the activity makes our village cleaner, more beautiful, and healthier to live in.\n\nThat is why I believe this simple activity has a big positive impact on our local community.",
+        "g9_u1_2": "My favourite community helper in my village is the garbage collector, a man named Mr. Nam, who has been doing this job for more than ten years. Although his work is simple and often seen as dirty, it is extremely important for keeping our rural community clean and healthy. Every day, he wakes up very early, usually before sunrise, and starts working while most people are still sleeping.\n\nIn our small village, he rides an old motorbike with a large metal cart attached to the back. He goes slowly along each road, stopping in front of every house to collect trash bags. Even on hot summer days, heavy rainy days, or cold winter mornings, he never skips his route. In the afternoon, he often helps clean the areas around the market, the commune hall, and the school gate, where rubbish gathers quickly. Sometimes, he even reminds children not to throw litter on the road and teaches them simple ways to protect the environment.\n\nI admire him because he does his job with dedication even though it is not well-paid or respected by many people. Thanks to his hard work, our village roads look cleaner, the air smells fresher, and people become more aware of keeping the environment tidy. Without him, our community would face unpleasant smells, pollution, and health problems.\n\nWhat I like most about him is his positive attitude. He always smiles and greets everyone politely. He rarely complains, even when the work is difficult. To me, he is a silent hero who contributes to the well-being of our village every single day.\n\nThat is why he is my favourite community helper.",
+        "g9_u2_1": "One feature of city life that I really like is the public transportation system, especially the bus network. In big cities like Hanoi and Ho Chi Minh City, buses are available almost everywhere. The routes are clearly numbered, the schedules are posted at bus stops, and buses come frequently throughout the day. This makes it very convenient for students like me who do not have their own vehicles.\n\nI often use the bus to go to school, visit my relatives, or go to the city center. The bus is cheap, safe, and environmentally friendly because it can carry many passengers at the same time. While sitting on the bus, I enjoy looking out the window and observing the busy streets, tall buildings, and daily activities of city life. Sometimes, I even study vocabulary or listen to English audio during the ride.\n\nThis feature is important because it helps reduce traffic jams and air pollution. If more people use buses instead of motorbikes, the roads would be less crowded and the air would be cleaner. The bus system also makes it possible for students, elderly people, and low-income families to travel easily without spending too much money.\n\nI enjoy using public transportation because it gives me independence, saves time, and helps me understand city life better. For me, the bus system is one of the best things about living in a city.",
+        "g9_u2_2": "Living in a city has many advantages, which is why more and more people choose to move from rural areas to urban centers. One major advantage is access to modern services and facilities. Cities have well-equipped hospitals, high-quality schools, supermarkets, shopping centers, and entertainment areas. Whenever people need something, they can easily find it within a short distance.\n\nAnother important advantage is the wide range of education and job opportunities. Students can attend good schools, join clubs, take extra classes, and use modern libraries. Adults can choose from many kinds of jobs in different fields such as business, technology, education, and tourism. This helps them improve their skills and build better careers.\n\nCities also offer convenient transportation systems, including buses, taxis, and sometimes metros. These make it easy for people to move around without using private vehicles. In addition, cities provide many cultural experiences—museums, theatres, concerts, parks, and festivals.\n\nFor these reasons, living in a city is very attractive. Although it can be crowded, the convenience and opportunities it offers make city life appealing to many people.",
+        "g9_u2_3": "Although city life has many advantages, it also has several drawbacks. One of the biggest problems is traffic congestion. During rush hours, thousands of vehicles fill the streets. People often become stressed as they wait in long lines of traffic.\n\nAnother serious drawback is air and noise pollution. With so many motorbikes, cars, factories, and construction sites, the air quality in cities is often poor. Many people, especially children and the elderly, suffer from respiratory problems. Noise from vehicles and crowded places can also make it difficult to concentrate or relax.\n\nCities are also overcrowded. Streets, schools, and apartment buildings are full of people. Some families live in very small spaces with little privacy. In addition, living costs in cities are high—food, rent, and transportation all cost more than in rural areas.\n\nAmong all the drawbacks, I think air pollution is the most serious because it affects people’s long-term health. Although cities offer opportunities, these problems make city life challenging for many residents.",
+        "g9_u3_1": "One healthy habit that teenagers should develop is doing regular exercise. Today, many students spend too much time sitting in class, using smartphones, or playing games. As a result, they may become tired, stressed, or unhealthy. Regular exercise can help prevent these problems.\n\nThere are many forms of exercise that are suitable for teenagers, such as jogging, swimming, cycling, playing badminton, or simply walking for 30 minutes a day. To practise this habit, students can make a weekly plan, choose a sport they enjoy, and exercise with a friend to stay motivated.\n\nRegular physical activity brings many benefits. It strengthens the body, improves blood circulation, and keeps the heart healthy. It also helps reduce stress and makes the mind clearer, which is very useful when studying. Students who exercise frequently often sleep better and feel more energetic in class.\n\nThis habit is especially important today because teenagers face a lot of pressure from schoolwork. Doing exercise helps them balance their physical and mental health and develop a positive lifestyle. Therefore, I think every teenager should make exercise a part of their daily routine.",
+        "g9_u3_2": "Time management is very important for teenagers because they have many tasks to complete each day, such as homework, revision, housework, and personal activities. One effective way to manage time is by making a daily or weekly schedule. Students can write down the tasks they need to finish and arrange them in order of priority.\n\nAnother helpful method is to reduce distractions. Spending too much time on social media or video games can waste valuable hours. Teenagers should set a limit for screen time and avoid using phones while studying.\n\nPreparing school materials in advance, especially the night before, is another good habit. It prevents students from rushing in the morning and helps them start the day calmly. Breaking big assignments into smaller parts also makes the work easier and less stressful.\n\nGood time management helps teenagers finish homework on time, improve their grades, and still have free time to relax or enjoy hobbies. It teaches them responsibility and makes their daily life more organized.",
+        "g9_u3_3": "Teenagers today often face stress from school, exams, relationships, and personal expectations. One effective way to reduce stress is by doing physical exercise, such as playing sports, walking, or practising simple stretches. Exercise releases energy and helps the mind relax.\n\nAnother helpful strategy is talking to someone they trust—a parent, teacher, or close friend. Sharing feelings can make problems feel lighter and help teenagers receive advice. Listening to music, reading books, or spending time in nature are also good ways to calm the mind.\n\nTeenagers should also learn to take short breaks between study sessions and avoid studying for too many hours without resting. Getting enough sleep is important because a tired brain becomes more stressed.\n\nManaging stress helps teenagers stay healthy and enjoy school life more. With the right habits, they can handle challenges more confidently.",
+        "g9_u4_1": "One memorable event from my childhood was my first day of primary school, an experience that I will never forget. I was six years old at the time, and everything around me felt new, colorful, and a little scary. Early in the morning, my mother helped me dress in my clean uniform and prepared my school bag with books, notebooks, and a pencil case. I remember feeling both excited and nervous as we walked toward the school gate.\n\nWhen we arrived, the schoolyard was full of students wearing the same uniform. Some were crying, while others were laughing and running around. I held my mother’s hand tightly because I was afraid of getting lost. My classroom was bright, with many pictures on the walls and small wooden desks arranged neatly. My first teacher, Ms. Hoa, greeted us with a warm smile. Her gentle voice made me feel calmer.\n\nDuring the break, I made my very first school friend. We shared snacks and talked about our favorite cartoons. That simple moment made me feel less lonely.\n\nThis memory is important to me because it marked the beginning of my learning journey. It taught me to be brave, make new friends, and enjoy school life. Even now, whenever I think about that day, I feel warm and happy.",
+        "g9_u5_1": "A new experience I tried for the first time was learning to ride a bicycle when I was around ten years old. Many of my friends already knew how to ride, so I felt excited but also a bit nervous. My father decided to teach me on a quiet afternoon in front of our house.\n\nAt first, I had trouble keeping my balance. My legs were shaking, and I was afraid of falling. My father held the back of the bike and encouraged me to pedal slowly. Even though I fell several times, he told me not to give up. After practising for several days, something amazing happened—I suddenly found my balance and rode a short distance by myself. I still remember the feeling of the wind on my face at that moment.\n\nOnce I learned how to ride confidently, I began exploring my village roads with friends. We rode to the rice fields, to the small market, and to the riverbank. Those rides became a big part of my childhood.\n\nThis experience taught me an important lesson: new things may be difficult at first, but with patience and practice, I can overcome challenges. Learning to ride a bicycle helped me become more confident and independent.",
+        "g9_u6_1": "One major lifestyle change in Vietnam over the years is the way people travel. In the past, especially in rural areas, most people used bicycles or simply walked to school, the market, or the rice fields. Motorbikes were rare, and only better-off families could afford one. Roads were narrow and sometimes unpaved, so traveling could be slow and difficult.\n\nToday, things have changed dramatically. Almost every household owns at least one motorbike, and many families even have cars. Roads are wider, smoother, and better maintained. There are also more public transportation options in big cities, such as buses and metro lines. These improvements make traveling faster, easier, and more comfortable.\n\nHowever, this lifestyle change also brings challenges. With more vehicles on the road, traffic jams and air pollution have become serious problems, especially in large cities. People must also be more careful because traffic accidents are common.\n\nDespite the drawbacks, this change has greatly improved people’s lives. It saves time, allows people to travel long distances easily, and creates more job and education opportunities. Overall, transportation in Vietnam shows how quickly our country has developed.",
+        "g9_u7_1": "A natural wonder I would like to visit is Ha Long Bay, one of the most famous UNESCO World Heritage Sites in Vietnam. Although I have seen many photos and videos of it, I have never had the chance to explore it in person.\n\nHa Long Bay is known for its thousands of limestone islands rising from emerald green water. Some islands have strange shapes, such as a chicken, a dog, or a pair of kissing rocks. Many islands also contain beautiful caves with stalactites and stalagmites formed over millions of years.\n\nIf I have the opportunity to visit Ha Long Bay, I would love to take a boat cruise, enjoy the fresh air, and watch the sunset over the water. I also want to explore the caves and learn about the legends related to the bay, such as the story of the dragons sent to protect Vietnam.\n\nHa Long Bay attracts millions of tourists every year, not only because of its beauty but also because it represents the rich natural heritage of Vietnam. Visiting this place would be an unforgettable experience for me as someone who loves nature and photography.",
+        "g9_u8_1": "Last year, I visited Hoi An Ancient Town with my family, and it was one of the most memorable trips I have ever had. Hoi An is well known for its old houses, colourful lanterns, and peaceful atmosphere.\n\nWhen we arrived, I was immediately impressed by the yellow ancient houses with wooden doors and tiled roofs. We walked along narrow streets decorated with hanging lanterns. Everything looked beautiful and full of history. We visited old temples, ancient houses, and traditional handicraft shops. The local people were friendly and always ready to share interesting stories about their culture.\n\nOne of the best moments was walking along the Thu Bon River in the evening. The lanterns were lit up, creating a magical view. We even released small paper lanterns on the water and made wishes.\n\nI would recommend Hoi An to any tourist because it is peaceful, charming, and rich in culture. The food is delicious, the streets are clean, and the atmosphere is perfect for relaxing.",
+        "g9_u9_1": "One variety of English that I find very interesting is British English. I first learned about it through my English textbooks and from watching BBC programs. Compared to American English, British English has a different accent, vocabulary, and sometimes even grammar.\n\nThe pronunciation of British English sounds elegant, soft, and pleasant to listen to. For example, British speakers often pronounce the “t” clearly in words like “water,” while Americans say it more like a “d.” British English also uses some unique vocabulary such as “flat” for apartment, “holiday” for vacation, and “timetable” for schedule.\n\nI find British English interesting because it reminds me of the long history and culture of the United Kingdom. Many famous authors, such as Shakespeare and Charles Dickens, wrote in British English. Learning this variety helps me understand English literature better.\n\nStudying different varieties of English makes the language more fun and helps me communicate with people from different countries. British English is my favourite because of its beautiful pronunciation and rich cultural background.",
+        "g9_u10_1": "One environmental problem that worries me the most is plastic pollution. Every day, huge amounts of plastic waste are thrown away, including bags, bottles, straws, and packaging. Much of this waste ends up in rivers, lakes, and the ocean.\n\nPlastic pollution is dangerous because it takes hundreds of years to decompose. Animals, especially sea creatures like turtles and fish, often mistake plastic for food and swallow it, which can kill them. Plastic also contaminates soil and water, affecting people’s health.\n\nThere are many reasons for plastic pollution. People use disposable plastic items because they are cheap and convenient. Many countries also lack proper recycling systems.\n\nTo reduce plastic pollution, we should start with small actions. For example, we can bring reusable bags when shopping, use refillable water bottles, and reduce the use of plastic straws. Schools and supermarkets should also encourage environmentally friendly products.\n\nProtecting the Earth is everyone’s responsibility. If we don’t take action now, the situation will become much worse in the future.",
+        "g9_u11_1": "The electronic device I use every day is my smartphone, and it has become an important part of my daily life. I use it for studying, communication, entertainment, and organising my schedule.\n\nFor studying, my smartphone helps me look up new vocabulary, watch English videos, and review lessons. I join group chats on Zalo where my classmates and I discuss homework or share study materials. I also use apps like Google Classroom or YouTube to learn new things.\n\nMy smartphone is useful for communication as well. I can call my parents, send messages to friends, or take photos of important information. When I travel, the map application helps me find directions easily.\n\nBesides studying and communication, I use my smartphone to relax. I listen to music, watch short videos, and read news online. However, I try to control my screen time so that it does not affect my eyes or my sleep.\n\nOverall, my smartphone is important because it helps me stay connected, learn new things, and manage my daily life efficiently.",
+        "g9_u12_1": "A job I would like to do in the future is becoming an English teacher. I have always enjoyed learning English, and I feel happy when I can help others understand something new. Many of my teachers have inspired me with their kindness and passion for teaching.\n\nTo become a good English teacher, I will need strong communication skills, good pronunciation, and a wide vocabulary. Teachers must also be patient, responsible, and creative because they work with students of different levels and personalities. I think this job suits my character because I am calm, friendly, and willing to help others.\n\nBeing a teacher is meaningful because teachers shape students’ futures. They don’t just teach knowledge; they also teach life skills, confidence, and good values. I hope one day I can stand in front of a classroom, explain lessons clearly, and see my students make progress.\n\nFor me, being an English teacher is not only a job but also a dream that I want to achieve."
+      };
+
+      // ===================== DOM =====================
+      const $ = (id) => document.getElementById(id);
+      const gradeSelect = $("gradeSelect");
+      const topicSelect = $("topicSelect");
+      const questionTextarea = $("question");
+      const questionTextContainer = $("questionTextContainer");
+      const showTextBtn = $("showTextBtn");
+      const speakQuestionBtn = $("speakQuestionBtn");
+      const startBtn = $("startBtn");
+      const stopBtn = $("stopBtn");
+      const sendBtn = $("sendBtn");
+      const suggestBtn = $("suggestBtn");
+      const suggestionsArea = $("suggestionsArea");
+      const resultArea = $("resultArea");
+      const statusEl = $("status");
+      const timerDisplay = $("timerDisplay");
+      const uploadProgress = $("uploadProgress");
+      const progressBar = $("progressBar");
+      const progressPercent = $("progressPercent");
+
+      // ===================== Timer =====================
+      let timerInterval = null;
+      function startTimer() {
+        let duration = SPEAK_TIME_SECONDS;
+        clearInterval(timerInterval);
+        timerDisplay.textContent = "03:00";
+        timerInterval = setInterval(() => {
+          duration--;
+          const m = Math.floor(duration / 60);
+          const s = duration % 60;
+          timerDisplay.textContent = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+          if (duration <= 0) {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "00:00";
+          }
+        }, 1000);
+      }
+      function stopTimer() {
+        clearInterval(timerInterval);
+        timerDisplay.textContent = "03:00";
+      }
+
+      // ===================== Audio Recording (Unified like Grade 6) =====================
+      function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+      function pickSupportedMime() {
+        const candidates = ["audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus","audio/ogg"];
+        if (!window.MediaRecorder) return "";
+        for (const t of candidates) {
+          try { if (MediaRecorder.isTypeSupported(t)) return t; } catch (e) {}
+        }
+        return "";
+      }
+
+      let recorderMode = "";
+      let isFullRecordingStarted = false;
+      let audioMimeType = "";
+      let micStream = null;
+
+      // MediaRecorder
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let fullAudioBlob = null;
+
+      // WAV fallback
+      const WAV_TARGET_RATE = 16000;
+      let wavCtx = null;
+      let wavSource = null;
+      let wavProcessor = null;
+      let wavGain0 = null;
+      let wavPaused = true;
+      let wavBuffers = [];
+      let wavInputRate = 48000;
+
+      async function ensureMicStream() {
+        if (micStream) return micStream;
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        return micStream;
+      }
+
+      function blobToDataUrl(blob, cb) {
+        const fr = new FileReader();
+        fr.onload = () => cb(fr.result);
+        fr.onerror = () => cb(null);
+        fr.readAsDataURL(blob);
+      }
+
+      function uint8ToBase64(u8) {
+        let binary = "";
+        const chunk = 0x8000;
+        for (let i = 0; i < u8.length; i += chunk) {
+          binary += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
+        }
+        return btoa(binary);
+      }
+
+      async function uploadAudioInChunksNoCors(blob, mimeType, meta) {
+        const uploadId = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+        const bytes = new Uint8Array(await blob.arrayBuffer());
+        const chunkBytes = 200 * 1024;
+        const total = Math.ceil(bytes.length / chunkBytes);
+
+        uploadProgress.style.display = "block";
+        progressBar.style.width = "0%";
+        progressPercent.textContent = "0%";
+
+        const uploadChunkWithRetry = async (idx, b64, retries = 3) => {
+          for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+              await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "uploadChunk", uploadId, idx, total, mimeType, b64 })
+              });
+              return true;
+            } catch (err) {
+              if (attempt < retries - 1) await sleep(500 * (attempt + 1));
+            }
+          }
+          return false;
+        };
+
+        for (let idx = 0; idx < total; idx++) {
+          const start = idx * chunkBytes;
+          const end = Math.min(start + chunkBytes, bytes.length);
+          const part = bytes.subarray(start, end);
+          const b64 = uint8ToBase64(part);
+
+          const ok = await uploadChunkWithRetry(idx, b64);
+          if (!ok) throw new Error(`Failed chunk ${idx + 1}/${total}`);
+
+          const percent = Math.round(((idx + 1) / total) * 100);
+          progressBar.style.width = `${percent}%`;
+          progressPercent.textContent = `${percent}%`;
+
+          await sleep(200);
+        }
+
+        const finalizeWithRetry = async (retries = 3) => {
+          for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+              await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "finalizeUpload", uploadId, total, mimeType, ...meta })
+              });
+              return true;
+            } catch (err) {
+              if (attempt < retries - 1) await sleep(1000 * (attempt + 1));
+            }
+          }
+          throw new Error("Finalize failed");
+        };
+
+        await finalizeWithRetry();
+
+        setTimeout(() => { uploadProgress.style.display = "none"; }, 1000);
+        return { ok: true, uploadId, total };
+      }
+
+      function downsampleBuffer(inputFloat32, inRate, outRate) {
+        if (outRate === inRate) return inputFloat32;
+        if (outRate > inRate) return inputFloat32;
+        const ratio = inRate / outRate;
+        const newLen = Math.round(inputFloat32.length / ratio);
+        const result = new Float32Array(newLen);
+        let offsetResult = 0;
+        let offsetBuffer = 0;
+        while (offsetResult < result.length) {
+          const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+          let accum = 0, count = 0;
+          for (let i = offsetBuffer; i < nextOffsetBuffer && i < inputFloat32.length; i++) {
+            accum += inputFloat32[i]; count++;
+          }
+          result[offsetResult] = count ? (accum / count) : 0;
+          offsetResult++;
+          offsetBuffer = nextOffsetBuffer;
+        }
+        return result;
+      }
+
+      function floatTo16BitPCM(float32Array) {
+        const out = new Int16Array(float32Array.length);
+        for (let i = 0; i < float32Array.length; i++) {
+          let s = Math.max(-1, Math.min(1, float32Array[i]));
+          out[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+        }
+        return out;
+      }
+
+      function encodeWav(int16Data, sampleRate) {
+        const buffer = new ArrayBuffer(44 + int16Data.length * 2);
+        const view = new DataView(buffer);
+        function writeString(offset, str){
+          for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+        }
+        const numChannels = 1;
+        const bitsPerSample = 16;
+        const byteRate = sampleRate * numChannels * bitsPerSample / 8;
+        const blockAlign = numChannels * bitsPerSample / 8;
+        const dataSize = int16Data.length * 2;
+
+        writeString(0, "RIFF");
+        view.setUint32(4, 36 + dataSize, true);
+        writeString(8, "WAVE");
+        writeString(12, "fmt ");
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, byteRate, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitsPerSample, true);
+        writeString(36, "data");
+        view.setUint32(40, dataSize, true);
+
+        let offset = 44;
+        for (let i = 0; i < int16Data.length; i++, offset += 2) {
+          view.setInt16(offset, int16Data[i], true);
+        }
+        return new Blob([buffer], { type: "audio/wav" });
+      }
+
+      async function startWavRecordingIfNeeded() {
+        if (isFullRecordingStarted && recorderMode === "wav") return;
+        await ensureMicStream();
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) throw new Error("WebAudio not supported");
+
+        wavCtx = new AudioCtx({ latencyHint: "interactive" });
+        try { await wavCtx.resume(); } catch(e){}
+
+        wavInputRate = wavCtx.sampleRate || 48000;
+        wavBuffers = [];
+        wavPaused = true;
+
+        wavSource = wavCtx.createMediaStreamSource(micStream);
+        const bufferSize = 4096;
+        wavProcessor = wavCtx.createScriptProcessor(bufferSize, 1, 1);
+
+        wavGain0 = wavCtx.createGain();
+        wavGain0.gain.value = 0;
+
+        wavProcessor.onaudioprocess = (e) => {
+          if (wavPaused) return;
+          const input = e.inputBuffer.getChannelData(0);
+          const down = downsampleBuffer(input, wavInputRate, WAV_TARGET_RATE);
+          const pcm16 = floatTo16BitPCM(down);
+          wavBuffers.push(pcm16);
+        };
+
+        wavSource.connect(wavProcessor);
+        wavProcessor.connect(wavGain0);
+        wavGain0.connect(wavCtx.destination);
+
+        recorderMode = "wav";
+        audioMimeType = "audio/wav";
+        isFullRecordingStarted = true;
+      }
+
+      function stopWavRecording(cb) {
+        try { wavPaused = true; } catch(e){}
+        try { if (wavProcessor) wavProcessor.disconnect(); } catch(e){}
+        try { if (wavSource) wavSource.disconnect(); } catch(e){}
+        try { if (wavGain0) wavGain0.disconnect(); } catch(e){}
+
+        const chunks = wavBuffers || [];
+        let totalLen = 0;
+        for (const a of chunks) totalLen += a.length;
+
+        const merged = new Int16Array(totalLen);
+        let off = 0;
+        for (const a of chunks) { merged.set(a, off); off += a.length; }
+
+        const blob = encodeWav(merged, WAV_TARGET_RATE);
+
+        const ctxToClose = wavCtx;
+        wavCtx = null; wavSource = null; wavProcessor = null; wavGain0 = null;
+        wavBuffers = [];
+        if (ctxToClose) { try { ctxToClose.close(); } catch(e) {} }
+
+        cb && cb(blob);
+      }
+
+      async function startMediaRecordingIfNeeded() {
+        if (isFullRecordingStarted && recorderMode === "media" && mediaRecorder) return;
+        if (!window.MediaRecorder) throw new Error("MediaRecorder not supported");
+        await ensureMicStream();
+
+        audioMimeType = pickSupportedMime() || "";
+        audioChunks = [];
+        fullAudioBlob = null;
+
+        mediaRecorder = new MediaRecorder(micStream, audioMimeType ? { mimeType: audioMimeType } : undefined);
+        mediaRecorder.ondataavailable = (e) => { if (e.data && e.data.size > 0) audioChunks.push(e.data); };
+        mediaRecorder.onstop = () => { fullAudioBlob = new Blob(audioChunks, { type: audioMimeType || "audio/webm" }); };
+
+        try { mediaRecorder.start(1000); } catch(e) { mediaRecorder.start(); }
+
+        recorderMode = "media";
+        isFullRecordingStarted = true;
+      }
+
+      async function startFullRecordingIfNeeded() {
+        try { await startMediaRecordingIfNeeded(); }
+        catch (e) { await startWavRecordingIfNeeded(); }
+      }
+
+      function pauseFullRecording() {
+        if (!isFullRecordingStarted) return;
+        if (recorderMode === "media" && mediaRecorder) {
+          if (mediaRecorder.state === "recording") { try { mediaRecorder.pause(); } catch(e){} }
+        } else if (recorderMode === "wav") {
+          wavPaused = true;
+        }
+      }
+
+      function resumeFullRecording() {
+        if (!isFullRecordingStarted) return;
+        if (recorderMode === "media" && mediaRecorder) {
+          if (mediaRecorder.state === "paused") { try { mediaRecorder.resume(); } catch(e){} }
+        } else if (recorderMode === "wav") {
+          wavPaused = false;
+        }
+      }
+
+      function stopFullRecording(cb) {
+        if (!isFullRecordingStarted) { cb && cb(null); return; }
+        if (recorderMode === "media" && mediaRecorder) {
+          try { mediaRecorder.requestData(); } catch(e){}
+          const prevOnStop = mediaRecorder.onstop;
+          mediaRecorder.onstop = () => {
+            try { fullAudioBlob = new Blob(audioChunks, { type: audioMimeType || "audio/webm" }); } catch (e) {}
+            mediaRecorder.onstop = prevOnStop;
+            cb && cb(fullAudioBlob);
+          };
+          try { mediaRecorder.stop(); } catch (e) { cb && cb(null); }
+        } else if (recorderMode === "wav") {
+          stopWavRecording(cb);
+        } else {
+          cb && cb(null);
+        }
+      }
+
+      // ===================== App state =====================
+      let hasCompletedTopic = false; // only after stop (one task)
+      let isRecording = false;
+
+      // ===================== Init selects =====================
+      GRADES.forEach((g) => {
+        const opt = document.createElement("option");
+        opt.value = g.id;
+        opt.textContent = g.name;
+        gradeSelect.appendChild(opt);
+      });
+
+      function updateTopics() {
+        const g = GRADES.find((x) => x.id === gradeSelect.value);
+        topicSelect.innerHTML = "";
+        if (g) {
+          g.topics.forEach((t) => {
+            const opt = document.createElement("option");
+            opt.value = t.id;
+            opt.textContent = t.name + (t.vn ? " - " + t.vn : "");
+            topicSelect.appendChild(opt);
+          });
+        }
+      }
+
+      function resetTopicState() {
+        hasCompletedTopic = false;
+        suggestBtn.disabled = true;
+        suggestionsArea.textContent = "(Bạn sẽ xem được gợi ý sau khi đã hoàn thành bài và nộp cho giáo viên.)";
+        sendBtn.disabled = false;
+        statusEl.textContent = 'Nhấn "Bắt đầu nói" để trả lời.';
+        stopTimer();
+        timerDisplay.textContent = "03:00";
+        isRecording = false;
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        pauseFullRecording();
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+
+      function renderQuestion() {
+        const tId = topicSelect.value;
+        const content = GRADE_9_QUESTIONS[tId] || "Content not found.";
+        questionTextarea.value = content;
+        questionTextContainer.style.display = "none";
+        resetTopicState();
+      }
+
+      gradeSelect.onchange = () => { updateTopics(); renderQuestion(); };
+      topicSelect.onchange = renderQuestion;
+      updateTopics();
+      renderQuestion();
+
+      // Step 2 buttons
+      showTextBtn.onclick = () => { questionTextContainer.style.display = "block"; };
+      speakQuestionBtn.onclick = () => { speakText(questionTextarea.value); };
+
+      // ===================== API call (no-cors) =====================
+      async function callScriptApiNoCors(action, payload) {
+        const body = JSON.stringify({ action, ...payload });
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body
+        });
+        return { ok: true, message: "Đã gửi yêu cầu. Vui lòng kiểm tra email GV để xác nhận." };
+      }
+
+      async function submitWithRetry(payload) {
+        let lastErr = null;
+        for (let i = 0; i < 2; i++) {
+          try {
+            const r = await callScriptApiNoCors("submitAll", payload);
+            if (r && r.ok) return { ok: true, r, channel: "no-cors" };
+            lastErr = new Error((r && r.message) ? r.message : "Request failed");
+          } catch (e) {
+            lastErr = e;
+          }
+          await sleep(600 * (i + 1));
+        }
+        return { ok: false, error: lastErr };
+      }
+
+      // ===================== Start/Stop =====================
+      startBtn.onclick = async () => {
+        try {
+          await startFullRecordingIfNeeded();
+          resumeFullRecording();
+          isRecording = true;
+          statusEl.textContent = "Đang ghi âm... Nói to và rõ.";
+          startTimer();
+        } catch (err) {
+          console.log(err);
+          statusEl.textContent = "Không thể khởi tạo ghi âm. Vui lòng kiểm tra quyền Microphone.";
+          return;
+        }
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+      };
+
+      stopBtn.onclick = () => {
+        isRecording = false;
+        pauseFullRecording();
+        stopTimer();
+
+        statusEl.textContent = "Đã dừng. Bạn có thể nộp bài.";
+        hasCompletedTopic = true;
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      };
+
+      // ===================== SEND: audio 1 file full bài =====================
+      sendBtn.onclick = () => {
+        const n = $("studentName").value.trim();
+        const c = $("studentClass").value.trim();
+        const tOpt = document.querySelector("#topicSelect option:checked");
+        const topicLabel = tOpt ? tOpt.text : "Topic";
+        const questionSummary = `${topicLabel} – Grade 9 speaking (audio-only)`;
+        const transcript = ""; // audio-only
+
+        if (!n || !c) {
+          alert("⚠️ Thiếu Họ tên hoặc Lớp!");
+          return;
+        }
+        if (!hasCompletedTopic) {
+          alert("Bạn cần bấm Dừng để hoàn thành bài rồi mới nộp.");
+          return;
+        }
+        if (!isFullRecordingStarted) {
+          alert("Chưa có audio. Hãy bấm Bắt đầu nói để ghi âm.");
+          return;
+        }
+
+        sendBtn.disabled = true;
+        resultArea.textContent = "Đang xử lý audio...";
+        pauseFullRecording();
+
+        stopFullRecording((blob) => {
+          (async () => {
+            try {
+              if (!blob || !blob.size) {
+                sendBtn.disabled = false;
+                resultArea.innerHTML = '<span class="status-error">Không tạo được file ghi âm. Vui lòng thử lại.</span>';
+                return;
+              }
+
+              const mime = blob.type || audioMimeType || "audio/webm";
+              const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
+
+              // Small: dataUrl
+              if (blob.size <= SMALL_BLOB_MAX) {
+                resultArea.textContent = `Audio ${sizeMB}MB: đang chuyển đổi...`;
+                const dataUrl = await new Promise((resolve) => blobToDataUrl(blob, resolve));
+                if (!dataUrl) {
+                  sendBtn.disabled = false;
+                  resultArea.innerHTML = '<span class="status-error">Lỗi chuyển đổi audio. Vui lòng thử lại.</span>';
+                  return;
+                }
+
+                let finalDataUrl = dataUrl;
+                let finalMime = mime;
+
+                if (finalDataUrl.length > MAX_DATAURL_CHARS) {
+                  finalDataUrl = "";
+                  finalMime = "";
+                }
+
+                const payload = {
+                  studentName: n,
+                  studentClass: c,
+                  topicLabel,
+                  questionSummary,
+                  transcript,
+                  mimeType: finalMime,
+                  dataUrl: finalDataUrl
+                };
+
+                resultArea.textContent = finalDataUrl
+                  ? "Đang nộp bài (audio)..."
+                  : "Audio quá lớn (base64). Đang chuyển sang upload chunk...";
+
+                if (!finalDataUrl) {
+                  // fallback to chunk
+                  await uploadAudioInChunksNoCors(blob, mime, {
+                    studentName: n, studentClass: c, topicLabel, questionSummary, transcript
+                  });
+                  sendBtn.disabled = false;
+                  resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công! Vui lòng kiểm tra email GV.</span>';
+                  suggestBtn.disabled = false;
+                  return;
+                }
+
+                const out = await submitWithRetry(payload);
+                sendBtn.disabled = false;
+
+                if (out.ok) {
+                  resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công (kèm audio)!</span>';
+                  suggestBtn.disabled = false;
+                } else {
+                  resultArea.innerHTML = '<span class="status-error">Nộp bài thất bại do lỗi mạng. Hãy thử lại.</span>';
+                }
+                return;
+              }
+
+              // Large: chunk upload
+              resultArea.textContent = `Audio ${sizeMB}MB: đang chia nhỏ & upload... (vui lòng không thoát trang)`;
+
+              await uploadAudioInChunksNoCors(blob, mime, {
+                studentName: n, studentClass: c, topicLabel, questionSummary, transcript
+              });
+
+              sendBtn.disabled = false;
+              resultArea.innerHTML = '<span class="status-ok">Đã nộp thành công! Vui lòng kiểm tra email GV (link audio).</span>';
+              suggestBtn.disabled = false;
+            } catch (e) {
+              console.log(e);
+              sendBtn.disabled = false;
+              resultArea.innerHTML = '<span class="status-error">Upload audio bị lỗi (mạng yếu/đứt). Hãy nộp lại khi mạng ổn định và giữ trang mở.</span>';
+            }
+          })();
+        });
+      };
+
+      // ===================== Suggest =====================
+      suggestBtn.onclick = () => {
+        if (!hasCompletedTopic) {
+          alert("Bạn cần hoàn thành bài trước khi xem gợi ý.");
+          return;
+        }
+        const tId = topicSelect.value;
+        const suggestion = SUGGESTED_ANSWERS[tId] || "Sorry, no suggestion available.";
+        suggestionsArea.textContent = suggestion;
+      };
+    </script>
+  </body>
 </html>
